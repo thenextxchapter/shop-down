@@ -138,28 +138,28 @@
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Preview</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Sold</th>
-                                            <th scope="col">Revenue</th>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Photos</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Roles</th>
+                                            <th scope="col">Enabled</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a th:href="@{/}"><img th:src="@{assets/img/product-1.jpg}" alt=""></a></th>
-                                            <td>Ut inventore ipsa voluptas nulla</td>
-                                            <td>$64</td>
-                                            <td class="fw-bold">124</td>
-                                            <td>$5,828</td>
+                                        <tr th:each="user: ${listUsers}">
+                                            <th th:text="${user.id}" scope="row">#</th>
+                                            <th scope="row"></th>
+                                            <td th:text="${user.firstName}"></td>
+                                            <td th:text="${user.lastName}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td th:text="${user.roles}"></td>
+                                            <td th:text="${user.enabled}"></td>
+                                            <td>Edit &nbsp; Delete</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row"><a th:href="@{/}"><img th:src="@{assets/img/product-2.jpg}" alt=""></a></th>
-                                            <td>Exercitationem similique doloremque</td>
-                                            <td>$46</td>
-                                            <td class="fw-bold">98</td>
-                                            <td>$4,508</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
