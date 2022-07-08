@@ -70,4 +70,16 @@ public class UserRepositoryTest {
 		repo.save(userNony);
 	}
 
+	@Test
+	public void testUpdateUserRoles() {
+		User userKosi = repo.findById(2).get();
+		Role roleEditor = new Role(3);
+		Role roleSalesPerson = new Role(2);
+
+		userKosi.getRoles().remove(roleEditor);
+		userKosi.addRole(roleSalesPerson);
+
+		repo.save(userKosi);
+	}
+
 }
