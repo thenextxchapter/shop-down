@@ -21,4 +21,9 @@ public class UserController {
 
 		return "users";
 	}
+
+	@GetMapping("/users/new")
+	public String newUser() {
+		return "user_form";
+	}
 }
