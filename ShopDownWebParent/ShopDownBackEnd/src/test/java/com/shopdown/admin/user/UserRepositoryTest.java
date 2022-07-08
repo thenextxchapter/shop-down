@@ -61,4 +61,13 @@ public class UserRepositoryTest {
 		assertThat(userNony).isNotNull();
 	}
 
+	@Test
+	public void testUpdateUserDetails() {
+		User userNony = repo.findById(1).get();
+		userNony.setEnabled(true);
+		userNony.setEmail("chinonsoata@yahoo.com");
+
+		repo.save(userNony);
+	}
+
 }
