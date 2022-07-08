@@ -1590,7 +1590,7 @@ ul.row {
   padding: 20px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
-  color: #012970;
+  /*color: #012970;*/
   font-family: "Poppins", sans-serif;
 }
 .card-title span {
@@ -1605,4 +1605,45 @@ ul.row {
 .card-img-overlay {
   background-color: rgba(255, 255, 255, 0.6);
 }
+
+/* Card */
+.table thead {
+  background: #f6f6fe;
+}
+
+.table thead th {
+  border: 0;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+.all-users img {
+  border-radius: 5px;
+  max-width: 60px;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  font-size: 14px;
+  color: #899bbd;
+  font-weight: 600;
+}
+.breadcrumb a {
+  color: #899bbd;
+  transition: 0.3s;
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  color: #51678f;
+}
+.breadcrumb .breadcrumb-item::before {
+  color: #899bbd;
+}
+.breadcrumb .active {
+  color: #51678f;
+  font-weight: 600;
+}
+
 
