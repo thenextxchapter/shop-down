@@ -2,6 +2,8 @@ package com.shopdown.admin.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import com.shopdown.common.entity.Role;
 import com.shopdown.common.entity.User;
 import org.junit.jupiter.api.Test;
@@ -44,6 +46,12 @@ public class UserRepositoryTest {
 		User savedUser = repo.save(userKosi);
 
 		assertThat(savedUser.getId()).isGreaterThan(0);
+	}
+
+	@Test
+	public void testListAllUsers() {
+		Iterable<User> listUsers = repo.findAll();
+		listUsers.forEach(System.out::println);
 	}
 
 }
