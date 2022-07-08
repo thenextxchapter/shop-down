@@ -82,4 +82,11 @@ public class Role {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Role{" +
+				"name='" + name + '\'' +
+				'}';
+	}
 }
