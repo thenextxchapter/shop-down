@@ -1,9 +1,14 @@
 package com.shopdown.admin.user;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.shopdown.common.entity.Role;
+import com.shopdown.common.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 @DataJpaTest
@@ -14,9 +19,31 @@ public class UserRepositoryTest {
 	@Autowired
 	UserRepository repo;
 
-	@Test
-	public void testCreateUser() {
+	@Autowired
+	private TestEntityManager entityManager;
 
+	@Test
+	public void testCreateUserWithOneRole() {
+		Role roleAdmin = entityManager.find(Role.class, 1);
+		User userNony = new User("chinonso.ata@gmail.com", "redcarpet", "Chinonso", "Ata");
+		userNony.addRole(roleAdmin);
+
+		User savedUser = repo.save(userNony);
+		assertThat(savedUser.getId()).isGreaterThan(0);
+	}
+
+	@Test
+	public void testCreateUserWithTwoRoles() {
+		User userKosi = new User("keloasuzu@gmail.com", "kosi123", "Kosisochukwu", "Asuzu");
+		Role roleEditor = new Role(3);
+		Role roleAssistant = new Role(5);
+
+		userKosi.addRole(roleEditor);
+		userKosi.addRole(roleAssistant);
+
+		User savedUser = repo.save(userKosi);
+
+		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
 
 }
