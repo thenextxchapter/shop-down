@@ -2,6 +2,7 @@ package com.shopdown.admin.user;
 
 import java.util.List;
 
+import com.shopdown.common.entity.Role;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,14 +26,20 @@ public class UserController {
 
 	@GetMapping("/users/new")
 	public String newUser(Model model) {
+		List<Role> listRoles = service.listRoles();
 		User user = new User();
+		user.setEnabled(true);
+
 		model.addAttribute("user", user);
+		model.addAttribute("listRoles", listRoles);
+
 		return "user_form";
 	}
 
 	@PostMapping("/users/save")
 	public String saveUser(User user) {
 		System.out.println(user);
+		service.save(user);
 		return "redirect:/users";
 	}
 }
