@@ -229,14 +229,18 @@
         });
 
         function checkEmailUnique(form) {
-            url = "[[@{/users/check_email}]]";
+            url = "[[@{/users/check-email}]]";
             userEmail = $("#email").val();
             // Making an AJAX call with Spring security, we need to pass the csrf value
             csrfValue = $("input[name='_csrf']").val();
             params = {email: userEmail, _csrf: csrfValue};
 
             $.post(url, params, function (response){
-                alert("Response from server: " + response);
+                if (response == "OK") {
+                    form.submit();
+                } else if (response == "Duplicated") {
+                    alert("There is another user with the same email " + userEmail);
+                }
             });
             return false;
         }
