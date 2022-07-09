@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="text-center mb-4">
                                     <button type="submit" class="btn btn-primary"> Save  </button>
-                                    <button type="button" class="btn btn-secondary"> Cancel  </button>
+                                    <button type="button" class="btn btn-secondary" id="buttonCancel"> Cancel  </button>
                                 </div>
                             </form>
                         </div> <!-- card-body.// -->
@@ -219,5 +219,13 @@
     <!-- Custom js -->
     <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
     <script type="text/javascript" th:src="@{/assets/simple-datatables/simple-datatables.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#buttonCancel").on("click", function () {
+                window.location = "[[@{/users}]]"
+            });
+        });
+    </script>
 </body>
 </html>
