@@ -202,6 +202,24 @@
         </div>
     </main>
 
+    <div class="modal fade text-center" id="modalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle">Warning</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalBody"></span>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="section-footer border-top padding-y">
         <div class="container">
             <p class="float-md-end">
@@ -235,14 +253,28 @@
             csrfValue = $("input[name='_csrf']").val();
             params = {email: userEmail, _csrf: csrfValue};
 
+            $("#modalDialog").modal("show");
+
+            if (true) return false;
+
             $.post(url, params, function (response){
                 if (response == "OK") {
                     form.submit();
                 } else if (response == "Duplicated") {
-                    alert("There is another user with the same email " + userEmail);
+                    showModalDialogue("Warning", "There is another user with the same email " + userEmail);
+                } else {
+                    showModalDialogue("Error", "Unknown response from server");
                 }
-            });
+            }).fail(function () {
+                showModalDialogue("Error", "Could not connect to the server");
+            })
             return false;
+        }
+
+        function showModalDialogue(title, message) {
+            $("#modalTitle").text(title);
+            $("#modalBody").text(message);
+            $("#modalDialog").modal();
         }
     </script>
 </body>
