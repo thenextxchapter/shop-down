@@ -149,19 +149,43 @@
                                             <th scope="col">Email</th>
                                             <th scope="col">Roles</th>
                                             <th scope="col">Enabled</th>
-                                            <th scope="col"></th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="user: ${listUsers}">
                                             <th th:text="${user.id}" scope="row">#</th>
-                                            <th scope="row"></th>
+                                            <th scope="row">
+                                                <div class="gallery-uploader-wrap">
+                                                    <label class="uploader-img">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32"
+                                                             height="32" viewBox="0 0 24 24">
+                                                            <circle cx="12" cy="12" r="3"/>
+                                                            <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                                        </svg>
+                                                    </label>
+                                                </div>
+                                            </th>
                                             <td th:text="${user.firstName}"></td>
                                             <td th:text="${user.lastName}"></td>
                                             <td th:text="${user.email}"></td>
                                             <td th:text="${user.roles}"></td>
-                                            <td th:text="${user.enabled}"></td>
-                                            <td>Edit &nbsp; Delete</td>
+                                            <td>
+                                                <a th:if="${user.enabled == true}" class="fa fa-check-circle"
+                                                   style="font-size: 1.5em; text-decoration: none">
+                                                </a>
+                                                <a th:if="${user.enabled == false}" class="fa fa-check-circle"
+                                                   style="font-size: 1.5em; text-decoration: none; color: #6c757d">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="fa fa-edit"
+                                                   style="font-size: 1.5em; text-decoration: none"
+                                                    th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user">
+                                                </a>
+                                                &nbsp;
+                                                <a class="fa fa-trash" style="font-size: 1.5em ; color: #6c757d"></a>
+                                            </td>
                                         </tr>
 
                                     </tbody>
