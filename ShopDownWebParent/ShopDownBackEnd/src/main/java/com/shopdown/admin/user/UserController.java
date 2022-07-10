@@ -54,7 +54,10 @@ public class UserController {
 			RedirectAttributes redirectAttributes, Model model) {
 		try {
 			User user = service.get(id);
+			List<Role> listRoles = service.listRoles();
+
 			model.addAttribute("user", user);
+			model.addAttribute("listRoles", listRoles);
 			model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
 			model.addAttribute("headerTitle", "Edit User");
 
