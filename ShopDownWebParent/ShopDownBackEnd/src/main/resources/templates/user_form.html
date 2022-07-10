@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>Create New User</title>
+    <title>[[${pageTitle}]]</title>
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
@@ -118,12 +118,12 @@
     <main class="section-content bg-light padding-y">
         <div class="container">
             <div class="pagetitle">
-                <h1>Manage Users | Create New User</h1>
+                <h1>Manage Users | [[${pageTitle}]]</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/index.html}">Home</a></li>
                         <li class="breadcrumb-item"><a th:href="@{/users.html}">Users</a></li>
-                        <li class="breadcrumb-item active">New User</li>
+                        <li class="breadcrumb-item active">[[${headerTitle}]]</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -137,7 +137,7 @@
                     <!-- ====== COMPONENT LOGIN  ====== -->
                     <div class="card shadow mx-auto" style="max-width:500px; margin-top:40px;">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Create New User</h4>
+                            <h4 class="card-title mb-4">[[${headerTitle}]]</h4>
                             <form th:action="@{/users/save}" th:object="${user}"
                                   onsubmit="return checkEmailUnique(this)" method="post">
                                 <div class="row gx-2">
