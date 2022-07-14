@@ -174,7 +174,7 @@
                                                 <a th:if="${user.enabled == true}" class="fa fa-check-circle"
                                                    style="font-size: 1.5em; text-decoration: none">
                                                 </a>
-                                                <a th:if="${user.enabled == false}" class="fa fa-check-circle"
+                                                <a th:if="${user.enabled == false}" class="fa fa-times-circle"
                                                    style="font-size: 1.5em; text-decoration: none; color: #6c757d">
                                                 </a>
                                             </td>
@@ -184,8 +184,9 @@
                                                     th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user">
                                                 </a>
                                                 &nbsp;
-                                                <a class="fa fa-trash"
+                                                <a class="fa fa-trash link-delete"
                                                    th:href="@{'/users/delete/' + ${user.id}}" title="Delete this user"
+                                                   th:userId="${user.id}"
                                                    style="font-size: 1.5em ; color: #6c757d"></a>
                                             </td>
                                         </tr>
@@ -200,6 +201,25 @@
         </div>
     </main>
 
+    <div class="modal fade text-center" id="confirmModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Confirmation</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span id="confirmText"></span>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-success" href="" id="yesButton">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="section-footer border-top padding-y">
         <div class="container">
             <p class="float-md-end">
@@ -211,7 +231,6 @@
         </div><!-- //container -->
     </footer>
 
-
     <!-- JQuery & Bootstrap JavaScript -->
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -219,5 +238,19 @@
     <!-- Custom js -->
     <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
     <script type="text/javascript" th:src="@{/assets/simple-datatables/simple-datatables.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".link-delete").on("click", function (e) {
+                e.preventDefault();
+                link = $(this);
+                // alert($(this).attr("href"));
+                userId = link.attr("userId");
+                $("#yesButton").attr("href", link.attr("href"));
+                $("#confirmText").text("Are you sure you want to delete this user ID " + userId + "?");
+                $("#confirmModal").modal("show");
+            });
+        });
+    </script>
 </body>
 </html>
