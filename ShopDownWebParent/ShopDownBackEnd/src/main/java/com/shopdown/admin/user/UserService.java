@@ -1,5 +1,6 @@
 package com.shopdown.admin.user;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -83,5 +85,9 @@ public class UserService {
 		}
 
 		userRepo.deleteById(id);
+	}
+
+	public void updateUserEnabledStatus(Integer id, boolean enabled) {
+		userRepo.updateEnabledStatus(id, enabled);
 	}
 }
