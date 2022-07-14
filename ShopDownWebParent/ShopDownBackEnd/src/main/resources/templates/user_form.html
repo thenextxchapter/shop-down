@@ -160,8 +160,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Create password</label>
-                                    <input class="form-control" placeholder="At least 8 characters." type="password"
+                                    <input th:if="${user.id == null}" class="form-control" placeholder="At least 8 characters." type="password"
                                            th:field="*{password}" required minlength="8" maxlength="20">
+                                    <input th:if="${user.id != null}" class="form-control" placeholder="At least 8 characters." type="password"
+                                           th:field="*{password}" minlength="8" maxlength="20">
                                 </div>
                                 <div class="row mb-3">
                                     <label class="form-label col-3">Roles</label>
