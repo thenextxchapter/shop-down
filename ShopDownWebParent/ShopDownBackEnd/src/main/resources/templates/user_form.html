@@ -140,6 +140,7 @@
                             <h4 class="card-title mb-4">[[${headerTitle}]]</h4>
                             <form th:action="@{/users/save}" method="post" th:object="${user}"
                                   onsubmit="return checkEmailUnique(this);">
+                                <input type="hidden" th:field="*{id}">
                                 <div class="row gx-2">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">First name</label>
@@ -249,9 +250,10 @@
         function checkEmailUnique(form) {
             const url = "[[@{/users/check-email}]]";
             const userEmail = $("#email").val();
+            const userId = $("#id").val();
             // Making an AJAX call with Spring security, we need to pass the csrf value
             const csrfValue = $("input[name='_csrf']").val();
-            const params = {email: userEmail, _csrf: csrfValue};
+            const params = {id: userId, email: userEmail, _csrf: csrfValue};
 
             $.post(url, params, function (response){
                 if (response === "OK") {
