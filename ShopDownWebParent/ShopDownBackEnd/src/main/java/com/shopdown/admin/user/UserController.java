@@ -1,12 +1,15 @@
 package com.shopdown.admin.user;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.shopdown.admin.FileUploadUtil;
 import com.shopdown.common.entity.Role;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,12 +50,20 @@ public class UserController {
 			User user,
 			RedirectAttributes redirectAttributes,
 			@RequestParam("image") MultipartFile multipartFile
-	) {
-		System.out.println(user);
-		System.out.println(multipartFile.getOriginalFilename());
+	) throws IOException {
+		if (!multipartFile.isEmpty()) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			user.setPhoto(fileName);
+			User savedUser = service.save(user);
+
+			String uploadDir = "user-photos/" + savedUser.getId();
+
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		}
+
 //		service.save(user);
 
-//		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
+		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
 		return "redirect:/users";
 	}
 
