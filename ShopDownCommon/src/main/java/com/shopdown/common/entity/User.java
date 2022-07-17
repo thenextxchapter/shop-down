@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -133,4 +134,10 @@ public class User {
 				", roles=" + roles +
 				'}';
 	}
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (id == null || photo == null) return "/assets/images/cameraSvg.png";
+		return "/user-photos/" + this.id + "/" + this.photo;
+ 	}
 }
