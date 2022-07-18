@@ -36,6 +36,7 @@ public class UserService {
 		Pageable pageable = PageRequest.of(pageNum-1, USERS_PER_PAGE);
 		return userRepo.findAll(pageable);
 	}
+
 	public List<Role> listRoles(){
 		return (List<Role>) roleRepo.findAll();
 	}
