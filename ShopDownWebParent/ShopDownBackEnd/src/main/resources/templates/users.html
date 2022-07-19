@@ -140,44 +140,25 @@
                         <div class="card all-users">
                             <div class="card-body table-responsive">
 
-                                <!--<div class="navbar navbar-light mt-4 mb-4">
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#tableUpperSection" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                </div>-->
+                                <div>
+                                    <form th:action="@{/users/page/1}" class="form-inline mt-4 mb-4">
+                                        <input type="hidden" name="sortField" th:value="${sortField}">
+                                        <input type="hidden" name="sortDir" th:value="${sortDir}">
 
+                                        <label class="weight">Filter: &nbsp;</label>
+                                        <input type="search" name="keyword" th:value="${keyword}" class="form-control-search form-control" required placeholder="Search..." title="Enter search keyword">
+                                        &nbsp;&nbsp;
+                                        <input type="button" value="Clear" class="btn btn-outline-primary" onclick="clearFilter()">
+                                        <input type="submit" value="Search" class="btn btn-primary">
 
-                                <div class="container table-upper-section">
-                                    <div class="row mt-4 mb-4">
-                                        <div class="col-4 d-flex">
-                                            <label class="col-form-label weight">Filter</label>
-                                            <div class="search-bar col-2">
-                                                <form class="search-form d-flex align-items-center">
-                                                    <input type="text" placeholder="Search..." title="Enter search keyword">
-                                                    <button type="submit" title="Search"><i class="fas fa-search"></i></button>
-                                                </form>
-                                            </div><!-- End Search Bar -->
-                                        </div>
+                                        <!--<button type="submit" title="Search"><i class="fas fa-search"></i></button>
 
-                                        <div class="col-3">
-                                            <button type="submit" class="btn btn-outline-primary"> Clear  </button>
-                                            <button type="button" class="btn btn-primary" id="buttonCancel"> Search  </button>
-                                        </div>
-                                        <!--<div class="col d-flex justify-content-end">
-                                            <a th:href="@{/users/new}" type="button" class="btn btn-primary me-3"><i class="me-2 fa fa-plus"></i>New</a>
-                                            <div class="input-group group-search col-2">
-                                                <label class="input-group-icon" for=""><i class="fas fa-arrow-alt-circle-down"></i></label>
-                                                <select class="form-select">
-                                                    <option selected><i class="fas fa-arrow-alt-circle-down"></i>Export</option>
-                                                    <option>To CSV</option>
-                                                    <option>To Excel</option>
-                                                    <option>To PDF</option>
-                                                </select>
-                                            </div>
-                                        </div>-->
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-outline-primary"> Clear  </button>
+                                        <button type="button" class="btn btn-primary" id="buttonCancel"> Search  </button>
+                                    </div>-->
 
-
-                                    </div> <!-- row end.// -->
+                                    </form> <!-- row end.// -->
 
                                 </div>
 
@@ -189,7 +170,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=id&sortDir='
-                                                        + ${sortDir}}"
+                                                        + ${sortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     #
                                                 </a>
@@ -197,7 +179,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=id&sortDir='
-                                                        + ${reverseSortDir}}"
+                                                        + ${reverseSortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     #
                                                 </a>
@@ -213,7 +196,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=firstName&sortDir='
-                                                        + ${sortDir}}"
+                                                        + ${sortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     First Name
                                                 </a>
@@ -221,7 +205,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=firstName&sortDir='
-                                                        + ${reverseSortDir}}"
+                                                        + ${reverseSortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     First Name
                                                 </a>
@@ -236,7 +221,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=lastName&sortDir='
-                                                        + ${sortDir}}"
+                                                        + ${sortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Last Name
                                                 </a>
@@ -244,7 +230,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=lastName&sortDir='
-                                                        + ${reverseSortDir}}"
+                                                        + ${reverseSortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Last Name
                                                 </a>
@@ -259,7 +246,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=email&sortDir='
-                                                        + ${sortDir}}"
+                                                        + ${sortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Email
                                                 </a>
@@ -267,7 +255,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=email&sortDir='
-                                                        + ${reverseSortDir}}"
+                                                        + ${reverseSortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Email
                                                 </a>
@@ -284,7 +273,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=enabled&sortDir='
-                                                        + ${sortDir}}"
+                                                        + ${sortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Enabled
                                                 </a>
@@ -292,7 +282,8 @@
                                                    th:href="@{'/users/page/'
                                                         + ${currentPage}
                                                         + '?sortField=enabled&sortDir='
-                                                        + ${reverseSortDir}}"
+                                                        + ${reverseSortDir}
+                                                        + ${keyword != null ? '&keyword=' + keyword : ''}}"
                                                    class="text-black" >
                                                     Enabled
                                                 </a>
@@ -367,7 +358,7 @@
                                 <span>No users found</span>
                             </div>
 
-                            <div>
+                            <div th:if="${totalPages > 1}">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
@@ -375,7 +366,8 @@
                                                th:href="@{'/users/page/1?sortField='
                                                     + ${sortField}
                                                     + '&sortDir='
-                                                    + ${sortDir} }">
+                                                    + ${sortDir}
+                                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
                                                 First
                                             </a>
                                         </li>
@@ -385,7 +377,8 @@
                                                     + '?sortField='
                                                     + ${sortField}
                                                     + '&sortDir='
-                                                    + ${sortDir}}">
+                                                    + ${sortDir}
+                                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
                                                 Previous
                                             </a>
                                         </li>
@@ -395,7 +388,8 @@
                                                th:href="@{'/users/page/' + ${i} + '?sortField='
                                                     + ${sortField}
                                                     + '&sortDir='
-                                                    + ${sortDir}}">
+                                                    + ${sortDir}
+                                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
                                                 [[${i}]]
                                             </a>
                                         </li>
@@ -405,7 +399,8 @@
                                                th:href="@{'/users/page/' + ${currentPage + 1} + '?sortField='
                                                     + ${sortField}
                                                     + '&sortDir='
-                                                    + ${sortDir}}">
+                                                    + ${sortDir}
+                                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
                                                 Next
                                             </a>
                                         </li>
@@ -414,7 +409,8 @@
                                                th:href="@{'/users/page/' + ${totalPages} + '?sortField='
                                                     + ${sortField}
                                                     + '&sortDir='
-                                                    + ${sortDir}}">
+                                                    + ${sortDir}
+                                                    + ${keyword != null ? '&keyword=' + keyword : ''}}">
                                                 Last
                                             </a>
                                         </li>
@@ -477,6 +473,10 @@
                 $("#confirmModal").modal("show");
             });
         });
+
+        function clearFilter() {
+            window.location = "[[@{/users}]]";
+        }
     </script>
 </body>
 </html>
