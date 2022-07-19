@@ -42,7 +42,7 @@
                         <a href="" class="btn btn-light"> Cart (2)</a>
                     </div>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main"aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
@@ -121,8 +121,10 @@
                 <h1>Manage Users</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active"><a th:href="@{/users/new}"><i class="me-2 fas fa-plus-circle"></i>Create New User</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to CSV</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to Excel</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to PDF</a></li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -137,18 +139,168 @@
 
                         <div class="card all-users">
                             <div class="card-body table-responsive">
-                                <a th:href="@{/users/new}" type="button" class="btn btn-primary mb-4 mt-4"><i class="me-2 fa fa-user-plus"></i>Create New User</a>
 
-                                <table class="table table-striped table-hover datatable">
+                                <!--<div class="navbar navbar-light mt-4 mb-4">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#tableUpperSection" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                </div>-->
+
+
+                                <div class="container table-upper-section">
+                                    <div class="row mt-4 mb-4">
+                                        <div class="col-4 d-flex">
+                                            <label class="col-form-label weight">Filter</label>
+                                            <div class="search-bar col-2">
+                                                <form class="search-form d-flex align-items-center">
+                                                    <input type="text" placeholder="Search..." title="Enter search keyword">
+                                                    <button type="submit" title="Search"><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </div><!-- End Search Bar -->
+                                        </div>
+
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-outline-primary"> Clear  </button>
+                                            <button type="button" class="btn btn-primary" id="buttonCancel"> Search  </button>
+                                        </div>
+                                        <!--<div class="col d-flex justify-content-end">
+                                            <a th:href="@{/users/new}" type="button" class="btn btn-primary me-3"><i class="me-2 fa fa-plus"></i>New</a>
+                                            <div class="input-group group-search col-2">
+                                                <label class="input-group-icon" for=""><i class="fas fa-arrow-alt-circle-down"></i></label>
+                                                <select class="form-select">
+                                                    <option selected><i class="fas fa-arrow-alt-circle-down"></i>Export</option>
+                                                    <option>To CSV</option>
+                                                    <option>To Excel</option>
+                                                    <option>To PDF</option>
+                                                </select>
+                                            </div>
+                                        </div>-->
+
+
+                                    </div> <!-- row end.// -->
+
+                                </div>
+
+                                <table class="table table-hover datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#</th>
+                                            <th scope="col">
+                                                <a th:if="${sortField != 'id'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=id&sortDir='
+                                                        + ${sortDir}}"
+                                                   class="text-black" >
+                                                    #
+                                                </a>
+                                                <a th:if="${sortField == 'id'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=id&sortDir='
+                                                        + ${reverseSortDir}}"
+                                                   class="text-black" >
+                                                    #
+                                                </a>
+
+                                                <span th:if="${sortField == 'id'}"
+                                                      th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                                                </span>
+                                            </th>
                                             <th scope="col">Photos</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
+
+                                            <th scope="col">
+                                                <a th:if="${sortField != 'firstName'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=firstName&sortDir='
+                                                        + ${sortDir}}"
+                                                   class="text-black" >
+                                                    First Name
+                                                </a>
+                                                <a th:if="${sortField == 'firstName'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=firstName&sortDir='
+                                                        + ${reverseSortDir}}"
+                                                   class="text-black" >
+                                                    First Name
+                                                </a>
+
+                                                <span th:if="${sortField == 'firstName'}"
+                                                      th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                                                </span>
+                                            </th>
+
+                                            <th scope="col">
+                                                <a th:if="${sortField != 'lastName'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=lastName&sortDir='
+                                                        + ${sortDir}}"
+                                                   class="text-black" >
+                                                    Last Name
+                                                </a>
+                                                <a th:if="${sortField == 'lastName'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=lastName&sortDir='
+                                                        + ${reverseSortDir}}"
+                                                   class="text-black" >
+                                                    Last Name
+                                                </a>
+
+                                                <span th:if="${sortField == 'lastName'}"
+                                                      th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                                                </span>
+                                            </th>
+
+                                            <th scope="col">
+                                                <a th:if="${sortField != 'email'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=email&sortDir='
+                                                        + ${sortDir}}"
+                                                   class="text-black" >
+                                                    Email
+                                                </a>
+                                                <a th:if="${sortField == 'email'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=email&sortDir='
+                                                        + ${reverseSortDir}}"
+                                                   class="text-black" >
+                                                    Email
+                                                </a>
+
+                                                <span th:if="${sortField == 'email'}"
+                                                      th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                                                </span>
+                                            </th>
+
                                             <th scope="col">Roles</th>
-                                            <th scope="col">Enabled</th>
+
+                                            <th scope="col">
+                                                <a th:if="${sortField != 'enabled'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=enabled&sortDir='
+                                                        + ${sortDir}}"
+                                                   class="text-black" >
+                                                    Enabled
+                                                </a>
+                                                <a th:if="${sortField == 'enabled'}"
+                                                   th:href="@{'/users/page/'
+                                                        + ${currentPage}
+                                                        + '?sortField=enabled&sortDir='
+                                                        + ${reverseSortDir}}"
+                                                   class="text-black" >
+                                                    Enabled
+                                                </a>
+
+                                                <span th:if="${sortField == 'enabled'}"
+                                                      th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                                                </span>
+                                            </th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -156,43 +308,50 @@
                                         <tr th:each="user: ${listUsers}">
                                             <th th:text="${user.id}" scope="row">#</th>
                                             <th scope="row">
-                                                <div class="gallery-uploader-wrap">
-                                                    <label th:if="${user.photo == null}" class="uploader-img">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32"
-                                                             height="32" viewBox="0 0 24 24">
-                                                            <circle cx="12" cy="12" r="3"/>
-                                                            <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                                                        </svg>
-                                                    </label>
-                                                    <img width="100px" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">
+                                                <div class="aside">
+                                                    <img class="img-avatar img-sm" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">
+                                                    <img class="img-avatar img-sm" th:if="${user.photo == null}" th:src="@{/assets/images/cameraSvg.png}">
                                                 </div>
+<!--                                                <div class="gallery-uploader-wrap">-->
+<!--                                                    <label th:if="${user.photo == null}" class="uploader-img">-->
+<!--                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32"-->
+<!--                                                             height="32" viewBox="0 0 24 24">-->
+<!--                                                            <circle cx="12" cy="12" r="3"/>-->
+<!--                                                            <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>-->
+<!--                                                        </svg>-->
+<!--                                                    </label>-->
+<!--                                                    <img width="100px" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">-->
+<!--                                                </div>-->
                                             </th>
                                             <td th:text="${user.firstName}"></td>
                                             <td th:text="${user.lastName}"></td>
                                             <td th:text="${user.email}"></td>
                                             <td th:text="${user.roles}"></td>
                                             <td>
-                                                <a th:if="${user.enabled == true}" class="fa fa-check-circle"
+                                                <a th:if="${user.enabled == true}"
+                                                   class="badge bg-success-light text-success rounded-pill"
                                                    th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
-                                                   title="Disable this user"
-                                                   style="font-size: 1.5em; text-decoration: none">
+                                                   title="Disable this user">
+                                                    Active
                                                 </a>
-                                                <a th:if="${user.enabled == false}" class="fa fa-times-circle"
+                                                <a th:if="${user.enabled == false}"
+                                                   class="badge bg-danger-light text-danger rounded-pill"
                                                    th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
-                                                   title="Enable this user"
-                                                   style="font-size: 1.5em; text-decoration: none; color: #6c757d">
+                                                   title="Enable this user">
+                                                    Disabled
                                                 </a>
                                             </td>
                                             <td>
-                                                <a class="fa fa-edit"
-                                                   style="font-size: 1.5em; text-decoration: none"
+                                                <a class="icon-xs mx-1 mb-1 box"
                                                     th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user">
+                                                    <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
                                                 </a>
                                                 &nbsp;
-                                                <a class="fa fa-trash link-delete"
+                                                <a class="icon-xs mx-1 mb-1 box"
                                                    th:href="@{'/users/delete/' + ${user.id}}" title="Delete this user"
-                                                   th:userId="${user.id}"
-                                                   style="font-size: 1.5em ; color: #6c757d"></a>
+                                                   th:userId="${user.id}">
+                                                    <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
+                                                </a>
                                             </td>
                                         </tr>
 
@@ -212,21 +371,52 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
                                         <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                            <a class="page-link" th:href="@{/users/page/1}">First</a>
+                                            <a class="page-link"
+                                               th:href="@{'/users/page/1?sortField='
+                                                    + ${sortField}
+                                                    + '&sortDir='
+                                                    + ${sortDir} }">
+                                                First
+                                            </a>
                                         </li>
                                         <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                            <a class="page-link" th:href="@{'/users/page/' + ${currentPage - 1}}">Previous</a>
+                                            <a class="page-link"
+                                               th:href="@{'/users/page/' + ${currentPage - 1}
+                                                    + '?sortField='
+                                                    + ${sortField}
+                                                    + '&sortDir='
+                                                    + ${sortDir}}">
+                                                Previous
+                                            </a>
                                         </li>
                                         <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
                                             th:each="i : ${#numbers.sequence(1, totalPages)}">
-                                            <a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+                                            <a class="page-link"
+                                               th:href="@{'/users/page/' + ${i} + '?sortField='
+                                                    + ${sortField}
+                                                    + '&sortDir='
+                                                    + ${sortDir}}">
+                                                [[${i}]]
+                                            </a>
                                         </li>
 
                                         <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                            <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
+                                            <a class="page-link"
+                                               th:href="@{'/users/page/' + ${currentPage + 1} + '?sortField='
+                                                    + ${sortField}
+                                                    + '&sortDir='
+                                                    + ${sortDir}}">
+                                                Next
+                                            </a>
                                         </li>
                                         <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                            <a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+                                            <a class="page-link"
+                                               th:href="@{'/users/page/' + ${totalPages} + '?sortField='
+                                                    + ${sortField}
+                                                    + '&sortDir='
+                                                    + ${sortDir}}">
+                                                Last
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav><!-- End Centered Pagination -->
