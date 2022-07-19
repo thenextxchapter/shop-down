@@ -1146,6 +1146,10 @@ strong.price, b.price, .b.price, .fw-bold.price {
 .form-control:not(:focus):hover, .form-select:not(:focus):hover {
   border-color: #6ea8fe;
 }
+.form-control-search {
+  width: auto;
+  display: inline-block;
+}
 
 .input-spinner {
   max-width: 140px;
