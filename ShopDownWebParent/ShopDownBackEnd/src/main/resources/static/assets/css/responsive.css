@@ -64,3 +64,15 @@
     padding-top: 20px;
   }
 }
+
+@media (min-width: 1200px) {
+  /* tablet devices */
+  .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-collapse {
+    display: flex !important;
+  }
+}
+
