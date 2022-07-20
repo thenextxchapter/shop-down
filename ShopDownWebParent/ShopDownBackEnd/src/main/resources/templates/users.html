@@ -21,7 +21,7 @@
 
     <style>
         .section-content {
-            min-height: 82vh;
+            min-height: 90vh;
         }
     </style>
 
@@ -36,11 +36,11 @@
                 </a>
 
                 <div class="d-flex align-items-center">
-                    <div class="d-xl-none me-2">
+                    <!--<div class="d-xl-none me-2">
                         <a href="" class="btn btn-light"> <i class="fa fa-user"></i> </a>
                         <a href="" class="btn btn-light"> <i class="fa fa-heart"></i> </a>
                         <a href="" class="btn btn-light"> Cart (2)</a>
-                    </div>
+                    </div>-->
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -119,12 +119,12 @@
         <div class="container">
             <div class="pagetitle">
                 <h1>Manage Users</h1>
-                <nav>
+                <nav class="mt-2">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a th:href="@{/users/new}"><i class="me-2 fas fa-plus-circle"></i>Create New User</a></li>
-                        <li class="breadcrumb-item active"><a th:href="@{/users/export/csv}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to CSV</a></li>
-                        <li class="breadcrumb-item active"><a th:href="@{/users/export/excel}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to Excel</a></li>
-                        <li class="breadcrumb-item active"><a th:href="@{/users/export/pdf}"><i class="me-2 fas fa-arrow-alt-circle-down"></i>Export to PDF</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/users/new}"><i class="me-2 fas fa-user-plus"></i>Create New User</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/users/export/csv}"><i class="me-2 fas fa-file-csv"></i>Export to CSV</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/users/export/excel}"><i class="me-2 fas fa-file-excel"></i>Export to Excel</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/users/export/pdf}"><i class="me-2 fas fa-file-pdf"></i>Export to PDF</a></li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -141,35 +141,53 @@
                             <div class="card-body table-responsive">
 
                                 <div>
-                                    <form th:action="@{/users/page/1}" class="form-inline mt-4 mb-4">
+                                    <form th:action="@{/users/page/1}" class="form-inline mt-4 mb-4 d-flex">
                                         <input type="hidden" name="sortField" th:value="${sortField}">
                                         <input type="hidden" name="sortDir" th:value="${sortDir}">
 
-                                        <label class="weight">Filter: &nbsp;</label>
-                                        <input type="search" name="keyword" th:value="${keyword}" class="form-control-search form-control" required placeholder="Search..." title="Enter search keyword">
+<!--                                        <label class="weight">Filter: &nbsp;</label>-->
+                                        <input type="text" name="keyword"
+                                               th:value="${keyword}" class="form-control-search form-control placey"
+                                               required placeholder="&#61442;  Search in users"
+                                               title="Enter search keyword">
                                         &nbsp;&nbsp;
-                                        <input type="button" value="Clear" class="btn btn-outline-primary" onclick="clearFilter()">
-                                        <input type="submit" value="Search" class="btn btn-primary">
+                                        <div class="ms-3 full-details">
+                                            <input type="button" value="Clear" class="btn btn-outline-primary" onclick="clearFilter()">
+                                            <input type="submit" value="Search" class="btn btn-primary">
+                                        </div>
+
+                                        <div class="ms-3 less-details">
+                                            <button type="button" class="btn btn-outline-primary" onclick="clearFilter()">
+                                                <i class="fas fa-eraser"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
                                     </form> <!-- row end.// -->
 
                                 </div>
 
-                                <table class="table table-hover datatable">
+                                <table class="full-details table table-hover datatable">
                                     <thead>
                                         <tr>
-                                            <th th:replace="fragments :: column_link('id', '#')"></th>
+                                            <th class="hideable-column">
+                                                <th th:replace="fragments :: column_link('id', '#', 'tag')"></th>
+                                            </th>
                                             <th scope="col">Photos</th>
-                                            <th th:replace="fragments :: column_link('firstName', 'First Name')"></th>
-                                            <th th:replace="fragments :: column_link('lastName', 'Last Name')"></th>
-                                            <th th:replace="fragments :: column_link('email', 'E-mail')"></th>
+                                            <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')"></th>
+                                            <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')"></th>
+                                            <th class="hideable-column">
+                                                <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')"></th>
+                                            </th>
                                             <th scope="col">Roles</th>
-                                            <th th:replace="fragments :: column_link('enabled', 'Enabled')"></th>
+                                            <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')"></th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="user: ${listUsers}">
-                                            <th th:text="${user.id}" scope="row">#</th>
+                                            <th th:text="${user.id}" scope="row" class="hideable-column">#</th>
                                             <th scope="row">
                                                 <div class="aside">
                                                     <img class="img-avatar img-sm" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">
@@ -178,7 +196,7 @@
                                             </th>
                                             <td th:text="${user.firstName}"></td>
                                             <td th:text="${user.lastName}"></td>
-                                            <td th:text="${user.email}"></td>
+                                            <td th:text="${user.email}" class="hideable-column"></td>
                                             <td th:text="${user.roles}"></td>
                                             <td>
                                                 <a th:if="${user.enabled == true}"
@@ -209,6 +227,45 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <div class="less-details">
+                                    <div th:each="user: ${listUsers}" class="row m-1">
+                                        <div class="col-3">
+                                            <img class="img-avatar img-sm" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">
+                                            <img class="img-avatar img-sm" th:if="${user.photo == null}" th:src="@{/assets/images/cameraSvg.png}">
+                                        </div>
+                                        <div class="col-8">
+                                            <div>[[${user.fullName}]]</div>
+                                            <div>[[${user.roles}]]</div>
+                                            <div class="mt-2">
+                                                <a th:if="${user.enabled == true}"
+                                                   class="badge me-2 bg-success-light text-success rounded-pill"
+                                                   th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+                                                   title="Disable this user">
+                                                    Active
+                                                </a>
+                                                <a th:if="${user.enabled == false}"
+                                                   class="badge me-2 bg-danger-light text-danger rounded-pill"
+                                                   th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+                                                   title="Enable this user">
+                                                    Disabled
+                                                </a>
+
+                                                <a class="icon-xs mb-1 box"
+                                                   th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user">
+                                                    <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
+                                                </a>
+                                                &nbsp;
+                                                <a class="icon-xs mb-1 box"
+                                                   th:href="@{'/users/delete/' + ${user.id}}" title="Delete this user"
+                                                   th:userId="${user.id}">
+                                                    <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div>&nbsp;</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                             <div class="text-center mb-1" th:if="${totalItems > 0}">
@@ -221,7 +278,7 @@
 
                             <div th:if="${totalPages > 1}">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
+                                    <ul class="pagination justify-content-center flex-wrap">
                                         <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
                                             <a th:replace="fragments :: page_link('1', 'First')"></a>
                                         </li>

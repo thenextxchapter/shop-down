@@ -140,4 +140,9 @@ public class User {
 		if (id == null || photo == null) return "/assets/images/cameraSvg.png";
 		return "/user-photos/" + this.id + "/" + this.photo;
  	}
+
+	 @Transient
+	public String getFullName() {
+		return firstName + " " + lastName;
+	 }
 }

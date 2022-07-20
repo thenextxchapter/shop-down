@@ -36,11 +36,11 @@
                 </a>
 
                 <div class="d-flex align-items-center">
-                    <div class="d-xl-none me-2">
+                    <!--<div class="d-xl-none me-2">
                         <a href="" class="btn btn-light"> <i class="fa fa-user"></i> </a>
                         <a href="" class="btn btn-light"> <i class="fa fa-heart"></i> </a>
                         <a href="" class="btn btn-light"> Cart (2)</a>
-                    </div>
+                    </div>-->
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main"aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -80,12 +80,12 @@
                         </li>
                     </ul>
 
-                    <form class="me-3">
+                    <!--<form class="me-3">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search">
                             <button class="btn-icon btn-primary btn">  <i class="fa fa-search"></i> </button>
                         </div>
-                    </form> <!-- form end.// -->
+                    </form> &lt;!&ndash; form end.// &ndash;&gt;
 
                     <div class="widgets-wrap d-none d-xl-flex">
 
@@ -106,7 +106,7 @@
                                 <i class="fa fa-shopping-cart"></i>
                                 <span class="notify">0</span>
                             </a>
-                        </div>
+                        </div>-->
 
                     </div>
 
@@ -115,21 +115,21 @@
         </nav> <!-- navbar end.// -->
     </header> <!-- section-header end.// -->
 
-    <main class="section-content bg-light padding-y">
+    <main class="section-content bg-light padding-top">
         <div class="container">
             <div class="pagetitle">
                 <h1>Manage Users | [[${pageTitle}]]</h1>
-                <nav>
+                <!--<nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
                         <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
                         <li class="breadcrumb-item active">[[${headerTitle}]]</li>
                     </ol>
-                </nav>
+                </nav>-->
             </div><!-- End Page Title -->
 
             <!-- ============== FORM SECTION CONTENT  ============== -->
-            <section class="padding-bottom bg-light" style="min-height:90vh">
+            <section class="bg-light" style="min-height:90vh">
                 <div class="container">
 
 
@@ -180,7 +180,7 @@
                                         </th:block>
                                     </div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row row-auto-width mb-4">
                                     <label class="col-sm-3 col-form-label">Enabled</label>
                                     <div class="col-sm-8 mt-2">
                                         <div class="form-check form-switch">
@@ -196,7 +196,7 @@
                                             <input type="file" id="fileImage" name="image" class="form-control" accept="image/png, image/jpeg">
                                         </label>
                                     </div>
-                                    <div class="gallery-uploader-wrap col-3 mb-3">
+                                    <div class="gallery-uploader-wrap media-width col-3 mb-3">
                                         <label class="uploader-img">
                                             <img id="thumbnail" width="100" th:src="@{${user.photosImagePath}}">
                                         </label>
