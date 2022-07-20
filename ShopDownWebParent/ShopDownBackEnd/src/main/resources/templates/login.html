@@ -39,7 +39,13 @@
             </div>
              <div class="card" style="max-width: 370px; margin: 0 auto;">
                  <div class="card-body p-4">
+
                      <h4 class="mb-4">Sign in to Control Panel</h4>
+
+                     <div th:if="${param.error}">
+                         <p class="text-danger text-center">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+                     </div>
+
                      <form th:action="@{/login}" method="post">
                          <div class="mb-3">
                              <label class="form-label">Email</label>
@@ -59,7 +65,7 @@
                              </label>
                          </div>
 
-                         <button class="btn w-100 btn-primary" type="button"> Sign in </button>
+                         <button class="btn w-100 btn-primary" type="submit"> Sign in </button>
                      </form>
                  </div> <!-- card end.// -->
              </div>
