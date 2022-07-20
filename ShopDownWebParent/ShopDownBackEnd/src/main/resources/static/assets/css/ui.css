@@ -1769,3 +1769,16 @@ a {
   background-color: #f9f9f9;
   border: 1px solid #dee2e6;
 }
+
+.navbar-light .navbar-nav .nav-link {
+  color: #212529;
+}
+.nav-link .icon-xs {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+}
+
+.bg-gray {
+  background-color: #ccd1d6 !important;
+}
