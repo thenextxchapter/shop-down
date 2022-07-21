@@ -35,18 +35,15 @@
 
     <header class="section-header">
         <nav class="navbar navbar-expand-xl navbar-light">
+            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+                <input type="submit">
+            </form>
             <div class="container">
                 <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/assets/images/shop-down.png}" height="40" class="logo">
                 </a>
 
                 <div class="d-flex align-items-center">
-                    <!--<div class="d-xl-none me-2">
-                        <a href="" class="btn btn-light"> <i class="fa fa-user"></i> </a>
-                        <a href="" class="btn btn-light"> <i class="fa fa-heart"></i> </a>
-                        <a href="" class="btn btn-light"> Cart (2)</a>
-                    </div>-->
-
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main"aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -87,41 +84,20 @@
 
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link py-0 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link py-0 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="icon-xs bg-gray rounded-circle me-2"><i class="fa fa-user"></i> </span>
-                                <span>Profile</span>
+                                <span sec:authentication="principal.firstName"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li> <a class="dropdown-item" href="#">Profile</a> </li>
-                                <li> <a class="dropdown-item" href="#">Account Settings</a> </li>
-                                <li> <a class="dropdown-item" href="#">Newsletter</a> </li>
+                                <li> <a class="dropdown-item" th:href="@{/#}">Profile</a> </li>
+                                <li> <a class="dropdown-item" th:href="@{/#}">Account Settings</a> </li>
+                                <li> <a class="dropdown-item" th:href="@{/#}">Newsletter</a> </li>
                                 <li> <hr class="dropdown-divider"> </li>
-                                <li> <a class="dropdown-item" href="#">Sign Out</a> </li>
+                                <li> <a class="dropdown-item" id="logoutLink" href="">Sign Out</a> </li>
                             </ul>
                         </li>
                     </ul>
 
-                    <!--<form class="me-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <button class="btn-icon btn-primary btn">  <i class="fa fa-search"></i> </button>
-                        </div>
-                    </form>--> <!-- form end.// -->
-
-                    <!--<div class="widgets-wrap d-none d-xl-flex">
-                        <div class="widget-header ms-2">
-                            <a href="#" class="icon icon-sm rounded-circle bg-gray-200">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                        </div>
-
-                        <div class="widget-header  ms-2">
-                            <a href="#" class="icon icon-sm rounded-circle bg-gray-200">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="notify">0</span>
-                            </a>
-                        </div>
-                    </div>-->
                 </div> <!-- collapse end.// -->
             </div> <!-- container end.// -->
         </nav> <!-- navbar end.// -->
@@ -152,5 +128,14 @@
 
     <!-- Custom js -->
     <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#logoutLink").on("click", function (e) {
+                e.preventDefault();
+                document.logoutForm.submit();
+            });
+        });
+    </script>
 </body>
 </html>
