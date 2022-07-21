@@ -67,4 +67,8 @@ public class ShopDownUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return user.isEnabled();
 	}
+
+	public String getFirstName() {
+		return this.user.getFirstName();
+	}
 }
