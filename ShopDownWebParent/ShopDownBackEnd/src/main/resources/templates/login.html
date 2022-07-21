@@ -1,40 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-
-    <title>Login - Shop Down Admin</title>
-
-    <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-
-    <!-- Custom css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}">
-
-    <!-- Font awesome 5 -->
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/fonts/fontawesome/css/all.min.css}">
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/images/favicon/apple-touch-icon.png}">
-    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/assets/images/favicon/favicon-32x32.png}">
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon/favicon-16x16.png}">
-    <link rel="manifest" th:href="@{/assets/images/favicon/site.webmanifest}">
-
-    <style>
-        .section-content {
-            min-height: 82vh;
-        }
-    </style>
-
-</head>
+<head th:replace="fragments :: page_head('Home - Shop Down Admin')"></head>
 <body>
 
     <main class="section-content bg-light padding-y">
         <div class="container-fluid">
             <div>
-                <img th:src="@{/assets/images/logo-medium.png}" height="120"
+                <img th:src="@{/assets/images/logo-medium.png}" height="100"
                      style="margin: 0 auto; display: block" class="logo">
             </div>
              <div class="card" style="max-width: 370px; margin: 0 auto;">
@@ -66,7 +38,7 @@
 
                          <div class="mb-3">
                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="" checked>
+                                 <input class="form-check-input" name="remember-me" type="checkbox" value="" checked>
                                  <span class="form-check-label"> Remember me </span>
                              </label>
                          </div>
@@ -77,20 +49,5 @@
              </div>
         </div>
     </main>
-
-
-    <footer class="section-footer border-top padding-y">
-        <div class="container">
-            <p class="float-md-end">
-                Shop Down Control Panel - Copyright &copy; Shop Down
-            </p>
-            <p>
-                <a th:href="@{/}" class="link-primary">Terms and conditions</a>
-            </p>
-        </div><!-- //container -->
-    </footer>
-
-    <!-- Custom js -->
-    <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
 </body>
 </html>

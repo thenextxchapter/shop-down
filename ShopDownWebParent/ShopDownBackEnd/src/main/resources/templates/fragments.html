@@ -1,9 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:fragment="page_head(title)">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>[[${title}]]</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}">
+
+    <!-- Font awesome 5 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/fonts/fontawesome/css/all.min.css}">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/images/favicon/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/assets/images/favicon/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon/favicon-16x16.png}">
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/images/favicon/favicon.ico}">
+    <link rel="manifest" th:href="@{/assets/images/favicon/site.webmanifest}">
+
+    <!-- JQuery & Bootstrap JavaScript -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Custom js -->
+    <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/common.js}"></script>
+
+    <style>
+        .section-content {
+            min-height: 100vh;
+        }
+    </style>
+
 </head>
+
 <body>
+
     <th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}" scope="col">
         <a th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"
            class="text-black" >
@@ -19,5 +56,16 @@
         th:href="@{'/users/page/' + ${pageNumber} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : '' }}">
         [[${pageTag}]]
     </a>
+
+    <footer th:fragment="footer" class="section-footer border-top padding-y">
+        <div class="container">
+            <p class="float-md-end">
+                Shop Down Control Panel - Copyright &copy; Shop Down
+            </p>
+            <p>
+                <a th:href="@{/}" class="link-primary">Terms and conditions</a>
+            </p>
+        </div><!-- //container -->
+    </footer>
 </body>
 </html>
