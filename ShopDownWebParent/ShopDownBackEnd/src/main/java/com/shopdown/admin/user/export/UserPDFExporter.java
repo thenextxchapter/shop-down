@@ -1,4 +1,4 @@
-package com.shopdown.admin.user;
+package com.shopdown.admin.user.export;
 
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -14,7 +14,6 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.shopdown.admin.AbstractExporter;
 import com.shopdown.common.entity.User;
 
 public class UserPDFExporter extends AbstractExporter {

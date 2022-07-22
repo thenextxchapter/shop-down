@@ -1,9 +1,12 @@
-package com.shopdown.admin.user;
+package com.shopdown.admin.user.service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.shopdown.admin.user.exception.UserNotFoundException;
+import com.shopdown.admin.user.repository.RoleRepository;
+import com.shopdown.admin.user.repository.UserRepository;
 import com.shopdown.common.entity.Role;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

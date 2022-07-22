@@ -1,4 +1,4 @@
-package com.shopdown.admin;
+package com.shopdown.admin.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -1,4 +1,4 @@
-package com.shopdown.admin.user;
+package com.shopdown.admin.user.repository;
 
 import com.shopdown.common.entity.User;
 import org.springframework.data.domain.Page;

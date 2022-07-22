@@ -1,9 +1,10 @@
-package com.shopdown.admin.user;
+package com.shopdown.admin.user.controller;
 
 import java.io.IOException;
 
-import com.shopdown.admin.FileUploadUtil;
+import com.shopdown.admin.utils.FileUploadUtil;
 import com.shopdown.admin.security.ShopDownUserDetails;
+import com.shopdown.admin.user.service.UserService;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,7 +33,7 @@ public class AccountController {
 		User user = service.getByEmail(email);
 		model.addAttribute("user", user);
 
-		return "account_form";
+		return "users/account_form";
 	}
 
 	@PostMapping("/account/update")

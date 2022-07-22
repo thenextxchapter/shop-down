@@ -1,4 +1,4 @@
-package com.shopdown.admin;
+package com.shopdown.admin.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

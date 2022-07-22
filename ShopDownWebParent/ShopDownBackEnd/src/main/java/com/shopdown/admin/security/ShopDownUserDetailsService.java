@@ -1,6 +1,6 @@
 package com.shopdown.admin.security;
 
-import com.shopdown.admin.user.UserRepository;
+import com.shopdown.admin.user.repository.UserRepository;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

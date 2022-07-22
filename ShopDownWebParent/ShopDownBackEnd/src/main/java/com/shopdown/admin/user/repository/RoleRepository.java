@@ -1,4 +1,4 @@
-package com.shopdown.admin.user;
+package com.shopdown.admin.user.repository;
 
 import com.shopdown.common.entity.Role;
 import org.springframework.data.repository.CrudRepository;
