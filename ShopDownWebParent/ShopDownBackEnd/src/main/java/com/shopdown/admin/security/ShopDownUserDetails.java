@@ -71,4 +71,8 @@ public class ShopDownUserDetails implements UserDetails {
 	public String getFirstName() {
 		return this.user.getFirstName();
 	}
+
+	public void setFirstName(String firstName) {
+		this.user.setFirstName(firstName);
+	}
 }
