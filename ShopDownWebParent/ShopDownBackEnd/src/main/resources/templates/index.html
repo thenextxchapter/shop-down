@@ -10,8 +10,10 @@
     <main class="section-content bg-light padding-y">
         <div class="container">
             <div>
-                <h1>Welcome to Shop Down Admin Control Panel</h1>
-            </div>
+                <h2>Shop Down Control Panel</h2>
+                Hello
+                <a th:href="@{/account}" sec:authentication="principal.firstName"></a> &#128075;
+                <span sec:authentication="principal.authorities"></span>            </div>
         </div>
     </main>
 
