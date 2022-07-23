@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: page_head('Error - Shop Down Admin')"></head>
+
+<body>
+    <main class="section-content bg-light">
+        <div class="container">
+            <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+                <h1>Uh oh!</h1>
+                <h2>Sorry, an unexpected error has occurred</h2>
+                <a class="btn" th:href="@{/}">Back to home</a>
+                <img th:src="@{/assets/images/misc/not-found.svg}" class="img-fluid py-5" alt="Page Not Found">
+            </section>
+        </div>
+    </main>
+</body>
+</html>

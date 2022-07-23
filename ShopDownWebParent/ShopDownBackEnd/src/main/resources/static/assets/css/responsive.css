@@ -100,6 +100,12 @@
   }
 }
 
+@media (min-width: 992px) {
+  .error-404 img {
+    max-width: 50%;
+  }
+}
+
 /*@media (min-width: 1200px) {
   !* tablet devices *!
   .navbar-toggler {
