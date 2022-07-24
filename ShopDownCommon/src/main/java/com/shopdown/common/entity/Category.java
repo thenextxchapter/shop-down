@@ -37,6 +37,34 @@ public class Category {
 	@OneToMany(mappedBy = "parent")
 	private Set<Category> children = new HashSet<>();
 
+	public Category() {
+	}
+
+	public Category(Integer id) {
+		this.id = id;
+	}
+
+	public Category(String name) {
+		/* Constructor for creating parent category */
+		this.name = name;
+		this.alias = name;
+		this.image = "default.png";
+	}
+
+	public Category(String name, Category parent) {
+		/* Constructor for creating a child category */
+		this(name); // calling the first constructor
+		this.parent = parent;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
