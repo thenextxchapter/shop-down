@@ -153,6 +153,7 @@ public class Category {
 
 	@Transient
 	public String getImagePath() {
+		if (this.id == null) return "/assets/images/cameraSvg.png";
 		return "/category-images/" + this.id + "/" + this.image;
 	}
 }

@@ -2,8 +2,10 @@ package com.shopdown.admin.category.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
+import com.shopdown.admin.category.exception.CategoryNotFoundException;
 import com.shopdown.admin.category.repository.CategoryRepository;
 import com.shopdown.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +94,14 @@ public class CategoryService {
 			categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
 			listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
+		}
+	}
+
+	public Category get(Integer id) throws CategoryNotFoundException {
+		try {
+			return categoryRepo.findById(id).get();
+		} catch (NoSuchElementException exception) {
+			throw new CategoryNotFoundException("Could not find any category with ID " + id);
 		}
 	}
 

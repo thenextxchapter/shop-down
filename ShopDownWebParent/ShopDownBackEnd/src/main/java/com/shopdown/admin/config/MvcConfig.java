@@ -29,6 +29,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 		/* CATEGORY */
 		String categoryImagesDirName = "../category-images";
+
 		Path categoryImagesDir = Paths.get(categoryImagesDirName);
 
 		String categoryImagesPath = categoryImagesDir.toFile().getAbsolutePath();
