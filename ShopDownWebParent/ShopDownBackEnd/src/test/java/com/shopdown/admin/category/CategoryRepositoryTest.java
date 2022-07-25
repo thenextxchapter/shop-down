@@ -66,7 +66,7 @@ public class CategoryRepositoryTest {
 				Set<Category> children = category.getChildren();
 
 				for (Category subCategory : children) {
-					System.out.println("--" + subCategory.getName());
+					System.out.println("  " + subCategory.getName());
 					printChildren(subCategory, 1);
 				}
 			}
@@ -79,7 +79,7 @@ public class CategoryRepositoryTest {
 
 		for (Category subCategory : children) {
 			for (int i = 0; i < newSubLevel; i++) {
-				System.out.print("--");
+				System.out.print("  ");
 			}
 			System.out.println(subCategory.getName());
 
