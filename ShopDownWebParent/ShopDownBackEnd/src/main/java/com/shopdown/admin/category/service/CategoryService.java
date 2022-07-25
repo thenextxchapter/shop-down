@@ -19,6 +19,10 @@ public class CategoryService {
 		return (List<Category>) categoryRepo.findAll();
 	}
 
+	public Category save(Category category) {
+		return categoryRepo.save(category);
+	}
+
 	public List<Category> listCategoriesUsedInForm() {
 		List<Category> categoriesUsedInForm = new ArrayList<>();
 
@@ -26,13 +30,13 @@ public class CategoryService {
 
 		for (Category category : categoriesInDB) {
 			if (category.getParent() == null) {
-				categoriesUsedInForm.add(new Category(category.getName()));
+				categoriesUsedInForm.add(Category.copyIdAndName(category));
 
 				Set<Category> children = category.getChildren();
 
 				for (Category subCategory : children) {
-					String name = "\u00A0\u00A0" + subCategory.getName();
-					categoriesUsedInForm.add(new Category(name));
+					String name = subCategory.getParent().getName() + "/" + subCategory.getName();
+					categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 					listChildren(categoriesUsedInForm, subCategory, 1);
 				}
 			}
@@ -47,12 +51,10 @@ public class CategoryService {
 
 		for (Category subCategory : children) {
 			String name = "";
-			for (int i = 0; i < newSubLevel; i++) {
-				name += "\u00A0\u00A0";
-			}
-			name += subCategory.getName();
+			name += parent.getParent().getName()+"/"+subCategory.getParent().getName()+"/"+subCategory.getName(); //changed this line
+//			name += subCategory.getName();
 
-			categoriesUsedInForm.add(new Category(name));
+			categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
 			listChildren(categoriesUsedInForm, subCategory, newSubLevel);
 		}
