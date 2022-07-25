@@ -86,4 +86,10 @@ public class CategoryRepositoryTest {
 			printChildren(subCategory, newSubLevel);
 		}
 	}
+
+	@Test
+	public void testListRootCategories() {
+		List<Category> rootCategories = repo.listRootCategories();
+		rootCategories.forEach(cat -> System.out.println(cat.getName()));
+	}
 }

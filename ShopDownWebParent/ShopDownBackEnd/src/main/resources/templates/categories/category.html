@@ -73,8 +73,8 @@
                                     <th th:text="${category.id}" scope="row" class="hideable-column">#</th>
                                     <th scope="row">
                                         <div class="aside">
-<!--                                            <img class="img-avatar img-sm" th:if="${categoriy.photo != null}" th:src="@{${category.photosImagePath}}">-->
-                                            <img class="img-avatar img-sm" th:src="@{/assets/images/cameraSvg.png}">
+                                            <img class="img-avatar img-sm" th:src="@{${category.imagePath}}">
+<!--                                            <img class="img-avatar img-sm" th:src="@{/assets/images/cameraSvg.png}">-->
                                         </div>
                                     </th>
                                     <td th:text="${category.name}"></td>

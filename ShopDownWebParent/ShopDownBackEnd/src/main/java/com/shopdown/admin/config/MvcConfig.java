@@ -16,6 +16,8 @@ public class MvcConfig implements WebMvcConfigurer {
 		* To expose a directory on the file system - to be accessible by the clients
 		*/
 
+		/* USERS */
+
 		String dirName = "user-photos";
 
 		Path userPhotosDir = Paths.get(dirName);
@@ -24,5 +26,14 @@ public class MvcConfig implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/" + dirName + "/**")
 				.addResourceLocations("file:" + userPhotosPath + "/");
+
+		/* CATEGORY */
+		String categoryImagesDirName = "../category-images";
+		Path categoryImagesDir = Paths.get(categoryImagesDirName);
+
+		String categoryImagesPath = categoryImagesDir.toFile().getAbsolutePath();
+
+		registry.addResourceHandler("/category-images/**")
+				.addResourceLocations("file:" + categoryImagesPath + "/");
 	}
 }

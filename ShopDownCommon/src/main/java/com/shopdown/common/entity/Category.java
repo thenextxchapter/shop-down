@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +45,9 @@ public class Category {
 		this.id = id;
 	}
 
+	/*We need to have a copy of the category object so that we don't tamper
+	* with the data from the database itself */
+
 	public static Category copyIdAndName(Category category) {
 		Category copyCategory = new Category();
 		copyCategory.setId(category.getId());
@@ -58,6 +62,24 @@ public class Category {
 		copyCategory.setName(name);
 
 		return copyCategory;
+	}
+
+	public static Category copy(Category category) {
+		Category copyCategory = new Category();
+		copyCategory.setId(category.getId());
+		copyCategory.setName(category.getName());
+		copyCategory.setImage(category.getImage());
+		copyCategory.setAlias(category.getAlias());
+		copyCategory.setEnabled(category.isEnabled());
+
+		return copyCategory;
+	}
+
+	public static Category copy(Category category, String name) {
+		Category copiedCategory = Category.copy(category);
+		copiedCategory.setName(name);
+
+		return copiedCategory;
 	}
 
 	public Category(String name) {
@@ -127,5 +149,10 @@ public class Category {
 
 	public void setChildren(Set<Category> children) {
 		this.children = children;
+	}
+
+	@Transient
+	public String getImagePath() {
+		return "/category-images/" + this.id + "/" + this.image;
 	}
 }
