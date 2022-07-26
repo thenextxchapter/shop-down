@@ -105,4 +105,40 @@ public class CategoryService {
 		}
 	}
 
+	public String checkUnique(Integer id, String name, String alias) {
+		/* If ID == null then we're creating a new category */
+		boolean isCreatingNew = (id == null || id == 0);
+
+		/* Category object based on name */
+		Category categoryByName = categoryRepo.findByName(name);
+
+		/* Check if we're creating a new category */
+		if (isCreatingNew) {
+			/* check if the categoryByName object is not null, meaning that there's
+			* already an existing category in the database */
+			if (categoryByName != null) {
+				return "DuplicateName";
+			} else {
+				Category categoryByAlias = categoryRepo.findByAlias(alias);
+				if (categoryByAlias != null) {
+					return "DuplicateAlias";
+				}
+			}
+		} else {
+			/* When we come into this else block the categoryByName object is not null */
+			if (categoryByName != null && categoryByName.getId() != id) {
+				/* We're checking if there's another category in the database
+				* that has the name and alias as the category being edited */
+				return "DuplicateName";
+			}
+
+			Category categoryByAlias = categoryRepo.findByAlias(alias);
+			if (categoryByAlias != null && categoryByAlias.getId() != id) {
+				return "DuplicateAlias";
+			}
+		}
+
+		return "OK";
+	}
+
 }

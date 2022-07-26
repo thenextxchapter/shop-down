@@ -19,6 +19,7 @@
                         <div class="card-body">
                             <h4 class="mb-4">[[${headerTitle}]]</h4>
                             <form th:action="@{/categories/save}" method="post" th:object="${category}"
+                                  onsubmit="return checkUnique(this)"
                                   enctype="multipart/form-data">
                                 <input type="hidden" th:field="*{id}">
                                 <div class="mb-3">
@@ -83,28 +84,45 @@
         </div>
     </main>
 
-    <div class="modal fade text-center" id="modalDialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle">Warning</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="modalBody"></span>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer th:replace="modal_fragments :: modal_dialog"></footer>
 
     <footer th:replace="fragments :: footer"></footer>
 
     <script type="text/javascript">
         moduleURL = "[[@{/categories}]]"
+
+        function checkUnique(form) {
+            const catId = $("#id").val();
+            const catName = $("#name").val();
+            const catAlias = $("#alias").val();
+
+            const csrfValue = $("input[name='_csrf']").val();
+
+            url = "[[@{/categories/check_unique}]]";
+
+            params = {
+                id: catId,
+                name: catName,
+                alias: catAlias,
+                _csrf: csrfValue
+            };
+
+            $.post(url, params, function (response) {
+                if (response === "OK") {
+                    form.submit();
+                } else if (response === "DuplicateName") {
+                    showModalWarning("There is another category with the same name " + catName);
+                } else if (response === "DuplicateAlias") {
+                    showModalWarning("There is another category with the same alias " + catAlias);
+                } else {
+                    showModalError("Unknown response from server");
+                }
+            }).fail(function () {
+                showModalError("Could not connect to the server");
+            });
+
+            return false;
+        }
     </script>
     <script type="text/javascript" th:src="@{/assets/js/form.js}"></script>
 </body>
