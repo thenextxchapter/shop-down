@@ -11,6 +11,7 @@ import com.shopdown.common.entity.Category;
 import com.shopdown.common.entity.Role;
 import com.shopdown.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,10 +29,17 @@ public class CategoryController {
 	private CategoryService service;
 
 	@GetMapping("/categories")
-	public String listCategories(Model model) {
-		List<Category> categories = service.listAll();
-		model.addAttribute("categories", categories);
+	public String listCategories(@Param("sortDir") String sortDir, Model model) {
+		if (sortDir == null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
 
+		List<Category> categories = service.listAll(sortDir);
+
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+		model.addAttribute("categories", categories);
+		model.addAttribute("reverseSortDir", reverseSortDir);
 		return "categories/category";
 	}
 
