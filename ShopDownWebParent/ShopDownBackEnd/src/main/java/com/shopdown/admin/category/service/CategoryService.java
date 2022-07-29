@@ -1,5 +1,6 @@
 package com.shopdown.admin.category.service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class CategoryService {
 
 	@Autowired
@@ -175,6 +177,10 @@ public class CategoryService {
 		sortedChildren.addAll(children);
 
 		return sortedChildren;
+	}
+
+	public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
+		categoryRepo.updateEnabledStatus(id, enabled);
 	}
 
 }

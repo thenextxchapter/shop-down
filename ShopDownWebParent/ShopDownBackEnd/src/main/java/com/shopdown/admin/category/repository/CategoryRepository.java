@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.shopdown.common.entity.Category;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 	Category findByName(String name);
 
 	Category findByAlias(String alias);
+
+	@Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
+	@Modifying
+	void updateEnabledStatus(Integer id, boolean enabled);
 }

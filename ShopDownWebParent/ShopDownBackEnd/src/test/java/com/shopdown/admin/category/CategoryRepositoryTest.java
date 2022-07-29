@@ -111,4 +111,10 @@ public class CategoryRepositoryTest {
 		assertThat(category).isNotNull();
 		assertThat(category.getAlias()).isEqualTo(alias);
 	}
+
+	@Test
+	public void testDisableCategory() {
+		Integer id = 4;
+		repo.updateEnabledStatus(id, false);
+	}
 }
