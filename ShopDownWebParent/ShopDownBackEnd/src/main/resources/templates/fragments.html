@@ -67,5 +67,39 @@
             </p>
         </div><!-- //container -->
     </footer>
+
+    <div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
+        <a th:if="${enabled == true}"
+           class="badge bg-success-light text-success rounded-pill"
+           th:href="@{${entityURL} + '/enabled/false'}"
+           th:title="'Disable this ' + ${entityName}" >
+            Active
+        </a>
+        <a th:if="${enabled == false}"
+           class="badge bg-danger-light text-danger rounded-pill"
+           th:href="@{${entityURL} + '/enabled/true'}"
+           th:title="'Enable this ' + ${entityName}" >
+            Disabled
+        </a>
+    </div>
+
+    <div th:fragment="edit(entityName, editURL)" th:remove="tag">
+        <a class="icon-xs mx-1 mb-1 box"
+           th:href="@{${editURL}}" th:title="'Edit this ' + ${entityName}">
+            <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
+        </a>
+    </div>
+        &nbsp;
+    <div th:fragment="delete" th:remove="tag">
+        <th:block th:if="${category.hasChildren == false}">
+            <a class="icon-xs mx-1 mb-1 box link-delete"
+               th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
+               th:entityId="${category.id}"
+               th:userId="${category.id}">
+                <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
+            </a>
+        </th:block>
+    </div>
+
 </body>
 </html>

@@ -4,11 +4,11 @@
 <head th:replace="fragments :: page_head('Category - Shop Down Admin')"></head>
 <body>
 
-<header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
+    <header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
 
-<main class="section-content bg-light padding-y">
-    <div class="container">
-        <div class="pagetitle">
+    <main class="section-content bg-light padding-y">
+        <div class="container">
+            <div class="pagetitle">
             <h1>Manage Categories</h1>
             <nav class="mt-2">
                 <ol class="breadcrumb">
@@ -32,9 +32,6 @@
                         <div class="card-body table-responsive">
 
                             <form th:action="@{/categories}" class="form-inline mt-4 mb-4 d-flex">
-                                <!--<input type="hidden" name="sortField" th:value="${sortField}">
-                                <input type="hidden" name="sortDir" th:value="${sortDir}">-->
-                                <!--                                        <label class="weight">Filter: &nbsp;</label>-->
                                 <input type="text" name="keyword"
                                        class="form-control-search form-control placey"
                                        required placeholder="&#61442;  Search in users"
@@ -73,40 +70,21 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="category: ${categories}">
-                                    <th th:text="${category.id}" scope="row" class="hideable-column">#</th>
+                                    <th th:text="${category.id}" scope="row">#</th>
                                     <th scope="row">
                                         <div class="aside">
-<!--                                            <img class="img-avatar img-sm" th:if="${category.image.contains('null')}" th:src="@{/assets/images/cameraSvg.png}">-->
                                             <img class="img-sm" style="border-radius: 10%;" th:src="@{${category.imagePath}}">
                                         </div>
                                     </th>
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.alias}"></td>
                                     <td>
-                                        <a th:if="${category.enabled == true}"
-                                           class="badge bg-success-light text-success rounded-pill"
-                                           th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
-                                           title="Disable this category">
-                                            Active
-                                        </a>
-                                        <a th:if="${category.enabled == false}"
-                                           class="badge bg-danger-light text-danger rounded-pill"
-                                           th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
-                                           title="Enable this category">
-                                            Disabled
-                                        </a>
+                                        <div th:replace="fragments :: status(${category.enabled}, 'category', '/categories/' + ${category.id})"></div>
                                     </td>
                                     <td>
-                                        <a class="icon-xs mx-1 mb-1 box"
-                                           th:href="@{'/categories/edit/' + ${category.id}}" title="Edit this category">
-                                            <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
-                                        </a>
+                                        <div th:replace="fragments :: edit('category', '/categories/edit/' + ${category.id})"></div>
                                         &nbsp;
-                                        <a class="icon-xs mx-1 mb-1 box"
-                                           th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
-                                           th:userId="${category.id}">
-                                            <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
-                                        </a>
+                                        <div th:replace="fragments :: delete"></div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -115,35 +93,20 @@
                             <div class="less-details">
                                 <div th:each="category: ${categories}" class="row m-1">
                                     <div class="col-3">
-<!--                                        <img class="img-avatar img-sm" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">-->
                                         <img class="img-avatar img-sm" th:src="@{${category.imagePath}}">
                                     </div>
                                     <div class="col-8">
                                         <div>[[${category.name}]]</div>
+                                        <div>[[${category.alias}]]</div>
                                         <div class="mt-2">
-                                            <a th:if="${category.enabled == true}"
-                                               class="badge me-2 bg-success-light text-success rounded-pill"
-                                               th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
-                                               title="Disable this category">
-                                                Active
-                                            </a>
-                                            <a th:if="${category.enabled == false}"
-                                               class="badge me-2 bg-danger-light text-danger rounded-pill"
-                                               th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
-                                               title="Enable this category">
-                                                Disabled
-                                            </a>
+                                            <td>
+                                                <div th:replace="fragments :: status(${category.enabled}, 'category', '/categories/' + ${category.id})"></div>
+                                            </td>
 
-                                            <a class="icon-xs mb-1 box"
-                                               th:href="@{'/categories/edit/' + ${category.id}}" title="Edit this category">
-                                                <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
-                                            </a>
+                                            <div th:replace="fragments :: edit('category', '/categories/edit/' + ${category.id})"></div>
                                             &nbsp;
-                                            <a class="icon-xs mb-1 box"
-                                               th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this user"
-                                               th:userId="${category.id}">
-                                                <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
-                                            </a>
+                                            <div th:replace="fragments :: delete"></div>
+
                                         </div>
                                     </div>
                                     <div>&nbsp;</div>
@@ -151,80 +114,29 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="text-center mt-4 mb-1" th:if="${totalItems > 0}">
-                        <span>Showing categories # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]] </span>
-                    </div>
-
-                    <div class="text-center mb-1" th:unless="${totalItems > 0}">
-                        <span>No users found</span>
-                    </div>
-
-                    <div th:if="${totalPages > 1}">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center flex-wrap">
-                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                    <a th:replace="fragments :: page_link('1', 'First')"></a>
-                                </li>
-                                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                                    <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
-                                </li>
-                                <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
-                                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                                    <a th:replace="fragments :: page_link(${i}, ${i})"></a>
-                                </li>
-
-                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                    <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
-                                </li>
-                                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                                    <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
-                                </li>
-                            </ul>
-                        </nav>&lt;!&ndash; End Centered Pagination &ndash;&gt;
-                    </div>-->
                 </div>
             </div>
         </section>
     </div>
-</main>
+    </main>
 
-<div class="modal fade text-center" id="confirmModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Delete Confirmation</h4>
-                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <span id="confirmText"></span>
-            </div>
+    <div th:replace="modal_fragments :: delete_modal"></div>
 
-            <div class="modal-footer">
-                <a class="btn btn-success" href="" id="yesButton">Yes</a>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <footer th:replace="fragments :: footer"></footer>
 
-<footer th:replace="fragments :: footer"></footer>
+    <script th:src="@{/assets/js/common_list.js}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".link-delete").on("click", function (e) {
-            e.preventDefault();
-            link = $(this);
-            // alert($(this).attr("href"));
-            userId = link.attr("userId");
-            $("#yesButton").attr("href", link.attr("href"));
-            $("#confirmText").text("Are you sure you want to delete this user ID " + userId + "?");
-            $("#confirmModal").modal("show");
+    <script type="text/javascript">
+        // moduleURL = "[[@{/categories}]]"
+
+        $(document).ready(function () {
+            $(".link-delete").on("click", function (e) {
+                e.preventDefault();
+                showConfirmDeleteModal($(this), 'category');
+            });
         });
-    });
 
-    function clearFilter() {
-        window.location = "[[@{/users}]]";
-    }
-</script>
+        clearFilter();
+    </script>
 </body>
 </html>

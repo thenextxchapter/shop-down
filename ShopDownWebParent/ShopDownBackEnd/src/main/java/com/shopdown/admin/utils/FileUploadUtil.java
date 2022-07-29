@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
@@ -46,6 +47,16 @@ public class FileUploadUtil {
 		} catch (IOException ex) {
 			LOGGER.error("Could not list directory: " + dirPath);
 //			System.out.println("Could not list directory: " + dirPath);
+		}
+	}
+
+	public static void removeDir(String dir) {
+		cleanDir(dir);
+
+		try {
+			Files.delete(Paths.get(dir));
+		} catch (IOException e) {
+			LOGGER.error("Could not remove directory: " + dir);
 		}
 	}
 }
