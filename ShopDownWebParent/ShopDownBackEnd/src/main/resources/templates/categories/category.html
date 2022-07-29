@@ -58,7 +58,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Category Image</th>
                                     <th scope="col">
-                                        <a th:href="@{'/categories?sortDir=' + ${reverseSortDir}}" class="text-black">
+                                        <a th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir}}" class="text-black">
                                             Category Name
                                         </a>
                                         <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
@@ -114,6 +114,7 @@
                             </div>
                         </div>
                     </div>
+                    <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
                 </div>
             </div>
         </section>

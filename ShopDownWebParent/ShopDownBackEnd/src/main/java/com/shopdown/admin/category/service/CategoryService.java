@@ -9,21 +9,26 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.shopdown.admin.category.CategoryPageInfo;
 import com.shopdown.admin.category.exception.CategoryNotFoundException;
 import com.shopdown.admin.category.repository.CategoryRepository;
 import com.shopdown.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class CategoryService {
+	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
 
 	@Autowired
 	private CategoryRepository categoryRepo;
 
-	public List<Category> listAll(String sortDir) {
+	public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir) {
 		Sort sort = Sort.by("name");
 
 		if (sortDir.equals("asc")) {
@@ -32,7 +37,14 @@ public class CategoryService {
 			sort = sort.descending();
 		}
 
-		List<Category> rootCategories = categoryRepo.listRootCategories(sort);
+		Pageable pageable = PageRequest.of(pageNum - 1, ROOT_CATEGORIES_PER_PAGE, sort);
+
+		Page<Category> pageCategories = categoryRepo.listRootCategories(pageable);
+		List<Category> rootCategories = pageCategories.getContent();
+
+		pageInfo.setTotalElements(pageCategories.getTotalElements());
+		pageInfo.setTotalPages(pageCategories.getTotalPages());
+
 		return listHierarchicalCategories(rootCategories, sortDir);
 	}
 
