@@ -23,12 +23,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class CategoryService {
-	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
 
 	@Autowired
 	private CategoryRepository categoryRepo;
 
-	public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir) {
+	public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir, String keyword) {
 		Sort sort = Sort.by("name");
 
 		if (sortDir.equals("asc")) {
@@ -39,13 +39,30 @@ public class CategoryService {
 
 		Pageable pageable = PageRequest.of(pageNum - 1, ROOT_CATEGORIES_PER_PAGE, sort);
 
-		Page<Category> pageCategories = categoryRepo.listRootCategories(pageable);
+		Page<Category> pageCategories = null;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			pageCategories = categoryRepo.search(keyword, pageable);
+		} else {
+			pageCategories = categoryRepo.listRootCategories(pageable);
+		}
+
 		List<Category> rootCategories = pageCategories.getContent();
 
 		pageInfo.setTotalElements(pageCategories.getTotalElements());
 		pageInfo.setTotalPages(pageCategories.getTotalPages());
 
-		return listHierarchicalCategories(rootCategories, sortDir);
+		if (keyword != null && !keyword.isEmpty()) {
+			List<Category> searchResult = pageCategories.getContent();
+			for (Category category : searchResult) {
+				category.setHasChildren(category.getChildren().size() > 0);
+			}
+
+			return searchResult;
+		} else {
+			return listHierarchicalCategories(rootCategories, sortDir);
+		}
+
 	}
 
 	private List<Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir) {

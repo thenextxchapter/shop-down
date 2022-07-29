@@ -1,7 +1,3 @@
-function clearFilter() {
-    window.location = moduleURL;
-}
-
 function showConfirmDeleteModal(link, entityName) {
     entityId = link.attr("entityId");
 
