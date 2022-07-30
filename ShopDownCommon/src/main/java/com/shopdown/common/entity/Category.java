@@ -173,7 +173,13 @@ public class Category {
 	public void setHasChildren(boolean hasChildren) {
 		this.hasChildren = hasChildren;
 	}
-
 	@Transient
 	private boolean hasChildren;
+
+	@Override
+	public String toString() {
+		return "Category{" +
+				"name='" + name + '\'' +
+				'}';
+	}
 }

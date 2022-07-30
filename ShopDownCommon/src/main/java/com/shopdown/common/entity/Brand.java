@@ -34,6 +34,18 @@ public class Brand {
 	)
 	private Set<Category> categories = new HashSet<>();
 
+	public Brand() {
+	}
+
+	public Brand(String name, String logo) {
+		this.name = name;
+		this.logo = logo;
+	}
+
+	public Brand(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -64,5 +76,19 @@ public class Brand {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	public void addCategory(Category category) {
+		this.categories.add(category);
+	}
+
+	@Override
+	public String toString() {
+		return "Brand{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", logo='" + logo + '\'' +
+				", categories=" + categories +
+				'}';
 	}
 }
