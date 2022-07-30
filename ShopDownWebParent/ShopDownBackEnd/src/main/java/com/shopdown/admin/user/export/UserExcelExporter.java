@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.shopdown.admin.AbstractExporter;
 import com.shopdown.common.entity.User;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -57,7 +58,7 @@ public class UserExcelExporter extends AbstractExporter {
 	}
 
 	public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-		super.setResponseHeader(response, "application/octet-stream", ".xlsx");
+		super.setResponseHeader(response, "application/octet-stream", ".xlsx", "users_");
 
 		writeHeaderLine();
 		writeDataLines(listUsers);

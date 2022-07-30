@@ -1,12 +1,15 @@
 package com.shopdown.admin.category.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
 import com.shopdown.admin.category.CategoryPageInfo;
 import com.shopdown.admin.category.exception.CategoryNotFoundException;
+import com.shopdown.admin.category.export.CategoryCsvExporter;
 import com.shopdown.admin.category.service.CategoryService;
 import com.shopdown.admin.user.exception.UserNotFoundException;
+import com.shopdown.admin.user.export.UserCsvExporter;
 import com.shopdown.admin.user.service.UserService;
 import com.shopdown.admin.utils.FileUploadUtil;
 import com.shopdown.common.entity.Category;
@@ -146,6 +149,7 @@ public class CategoryController {
 		return "redirect:/categories";
 	}
 
+	@GetMapping("/categories/delete/{id}")
 	public String deleteCategory(
 			@PathVariable(name = "id") Integer id,
 			Model model,
@@ -163,5 +167,12 @@ public class CategoryController {
 		}
 
 		return "redirect:/categories";
+	}
+
+	@GetMapping("/categories/export/csv")
+	public void exportToCSV(HttpServletResponse response) throws IOException {
+		List<Category> listCategories = service.listCategoriesUsedInForm();
+		CategoryCsvExporter exporter = new CategoryCsvExporter();
+		exporter.export(listCategories, response);
 	}
 }
