@@ -20,9 +20,7 @@
                 </nav>
             </div><!-- End Page Title -->
 
-            <div th:if="${message != null}" class="alert alert-success text-center">
-                [[${message}]]
-            </div>
+            <div th:replace="fragments :: message"></div>
 
             <section class="section">
                 <div class="row">
@@ -37,16 +35,16 @@
                                     <thead>
                                         <tr>
                                             <th class="hideable-column">
-                                                <th th:replace="fragments :: column_link('id', '#', 'tag')"></th>
+                                                <th th:replace="fragments :: column_link('/users', 'id', '#', 'tag')"></th>
                                             </th>
                                             <th scope="col">Photos</th>
-                                            <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')"></th>
-                                            <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')"></th>
+                                            <th th:replace="fragments :: column_link('/users', 'firstName', 'First Name', 'none')"></th>
+                                            <th th:replace="fragments :: column_link('/users', 'lastName', 'Last Name', 'none')"></th>
                                             <th class="hideable-column">
-                                                <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')"></th>
+                                                <th th:replace="fragments :: column_link('/users', 'email', 'E-mail', 'tag')"></th>
                                             </th>
                                             <th scope="col">Roles</th>
-                                            <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')"></th>
+                                            <th th:replace="fragments :: column_link('/users', 'enabled', 'Enabled', 'none')"></th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -69,12 +67,7 @@
                                             <td>
                                                 <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"></div>
                                                 &nbsp;
-                                                <a class="icon-xs mx-1 mb-1 box link-delete"
-                                                   th:href="@{'/users/delete/' + ${user.id}}" title="Delete this user"
-                                                   th:userId="${user.id}" th:entityId="${user.id}"
-                                                >
-                                                    <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
-                                                </a>
+                                                <div th:replace="fragments :: delete('user', '/users/delete/' + ${user.id}, true, ${user.id})"></div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -95,13 +88,8 @@
                                                 </td>
 
                                                 <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"></div>
-
                                                 &nbsp;
-                                                <a class="icon-xs mb-1 box link-delete"
-                                                   th:href="@{'/users/delete/' + ${user.id}}" title="Delete this user"
-                                                   th:userId="${user.id}" th:entityId="${user.id}">
-                                                    <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
-                                                </a>
+                                                <div th:replace="fragments :: delete('user', '/users/delete/' + ${user.id}, true, ${user.id})"></div>
                                             </div>
                                         </div>
                                         <div>&nbsp;</div>

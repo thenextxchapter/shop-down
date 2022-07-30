@@ -41,8 +41,8 @@
 
 <body>
 
-    <th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}" scope="col">
-        <a th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"
+    <th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}" scope="col">
+        <a th:href="@{${moduleURL} +'/page/' + ${currentPage} + '?sortField=' + ${fieldName} +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"
            class="text-black" >
             [[${columnLabel}]]
         </a>
@@ -90,12 +90,12 @@
         </a>
     </div>
         &nbsp;
-    <div th:fragment="delete" th:remove="tag">
-        <th:block th:if="${category.hasChildren == false}">
+    <div th:fragment="delete(entityName, deleteURL, visible, entityId)" th:remove="tag">
+        <th:block th:if="${visible}">
             <a class="icon-xs mx-1 mb-1 box link-delete"
-               th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
-               th:entityId="${category.id}"
-               th:userId="${category.id}">
+               th:href="@{${deleteURL}}" th:title="'Delete this' + ${entityName}"
+               th:entityId="${entityId}"
+               th:userId="${entityId}">
                 <img th:src="@{/assets/fonts/trash-2.svg}" width="28" height="28">
             </a>
         </th:block>
@@ -160,6 +160,9 @@
         </div>
     </form> <!-- row end.// -->
 
+    <div th:fragment="message" th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
 
 </body>
 </html>
