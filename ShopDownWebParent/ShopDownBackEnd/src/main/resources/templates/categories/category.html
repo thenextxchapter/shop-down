@@ -36,7 +36,7 @@
                             <table class="full-details table table-hover datatable">
                                 <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col" class="hideable-column">#</th>
                                     <th scope="col">Category Image</th>
                                     <th scope="col">
                                         <a th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" class="text-black">
@@ -44,21 +44,21 @@
                                         </a>
                                         <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
                                     </th>
-                                    <th scope="col">Alias</th>
+                                    <th scope="col" class="hideable-column">Alias</th>
                                     <th scope="col">Enabled</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="category: ${categories}">
-                                    <th th:text="${category.id}" scope="row">#</th>
+                                    <th th:text="${category.id}" scope="row" class="hideable-column">#</th>
                                     <th scope="row">
                                         <div class="aside">
                                             <img class="img-sm" style="border-radius: 10%;" th:src="@{${category.imagePath}}">
                                         </div>
                                     </th>
                                     <td th:text="${category.name}"></td>
-                                    <td th:text="${category.alias}"></td>
+                                    <td th:text="${category.alias}" class="hideable-column"></td>
                                     <td>
                                         <div th:replace="fragments :: status(${category.enabled}, 'category', '/categories/' + ${category.id})"></div>
                                     </td>
@@ -78,7 +78,6 @@
                                     </div>
                                     <div class="col-8">
                                         <div>[[${category.name}]]</div>
-                                        <div>[[${category.alias}]]</div>
                                         <div class="mt-2">
                                             <td>
                                                 <div th:replace="fragments :: status(${category.enabled}, 'category', '/categories/' + ${category.id})"></div>
