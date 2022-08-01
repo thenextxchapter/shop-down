@@ -19,6 +19,7 @@
                         <div class="card-body">
                             <h4 class="mb-4">[[${headerTitle}]]</h4>
                             <form th:action="@{/brands/save}" method="post" th:object="${brand}"
+                                  onsubmit="return checkUnique(this)"
                                   enctype="multipart/form-data">
                                 <input type="hidden" th:field="*{id}">
                                 <div class="mb-3">
@@ -101,15 +102,15 @@
             });
         }
 
-        /*function checkUnique(form) {
+        function checkUnique(form) {
             const brandId = $("#id").val();
             const brandName = $("#name").val();
 
             const csrfValue = $("input[name='_csrf']").val();
 
-            url = "[[@{/brands/check_unique}]]";
+            const url = "[[@{/brands/check_unique}]]";
 
-            params = {
+            const params = {
                 id: brandId,
                 name: brandName,
                 _csrf: csrfValue
@@ -119,7 +120,7 @@
                 if (response === "OK") {
                     form.submit();
                 } else if (response === "DuplicateName") {
-                    showModalWarning("There is another category with the same name " + brandName);
+                    showModalWarning("There is another brand with the same name " + brandName);
                 } else {
                     showModalError("Unknown response from server");
                 }
@@ -128,7 +129,7 @@
             });
 
             return false;
-        }*/
+        }
     </script>
     <script type="text/javascript" th:src="@{/assets/js/form.js}"></script>
 </body>
