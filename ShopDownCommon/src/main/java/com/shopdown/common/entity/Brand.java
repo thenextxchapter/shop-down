@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,6 +81,12 @@ public class Brand {
 
 	public void addCategory(Category category) {
 		this.categories.add(category);
+	}
+
+	@Transient
+	public String getImagePath() {
+		if (this.id == null) return "/assets/images/cameraSvg.png";
+		return "/brand-logos/" + this.id + "/" + this.logo;
 	}
 
 	@Override

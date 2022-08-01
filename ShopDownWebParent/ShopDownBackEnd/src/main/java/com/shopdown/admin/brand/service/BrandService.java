@@ -1,7 +1,9 @@
 package com.shopdown.admin.brand.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import com.shopdown.admin.brand.exception.BrandNotFoundException;
 import com.shopdown.admin.brand.repository.BrandRepository;
 import com.shopdown.admin.category.repository.CategoryRepository;
 import com.shopdown.common.entity.Brand;
@@ -24,5 +26,26 @@ public class BrandService {
 
 	public List<Category> listCategories() {
 		return (List<Category>) catRepo.findAll();
+	}
+
+	public Brand save(Brand brand) {
+		return brandRepo.save(brand);
+	}
+
+	public Brand get(Integer id) throws BrandNotFoundException {
+		try {
+			return brandRepo.findById(id).get();
+		} catch (NoSuchElementException exception) {
+			throw  new BrandNotFoundException("Could not find any brand with ID " + id);
+		}
+	}
+
+	public void delete(Integer id) throws BrandNotFoundException {
+		Long countById = brandRepo.countById(id);
+		if (countById == null || countById == 0) {
+			throw new BrandNotFoundException("Could not find any brand with ID " + id);
+		}
+
+		brandRepo.deleteById(id);
 	}
 }

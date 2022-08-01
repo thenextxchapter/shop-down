@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BrandRepository extends PagingAndSortingRepository<Brand, Integer> {
 
+	Long countById(Integer id);
 }

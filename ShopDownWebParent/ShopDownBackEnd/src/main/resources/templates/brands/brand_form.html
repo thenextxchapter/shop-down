@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle})"></head>
+<body>
+
+    <header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
+
+    <main class="section-content bg-light padding-top">
+        <div class="container">
+            <div class="pagetitle">
+                <h1>Manage Brands</h1>
+            </div><!-- End Page Title -->
+
+            <!-- ============== FORM SECTION CONTENT  ============== -->
+            <section class="bg-light" style="min-height:90vh">
+                <div class="container">
+                    <!-- ====== COMPONENT LOGIN  ====== -->
+                    <div class="card shadow mx-auto" style="max-width:500px; margin-top:40px;">
+                        <div class="card-body">
+                            <h4 class="mb-4">[[${headerTitle}]]</h4>
+                            <form th:action="@{/brands/save}" method="post" th:object="${brand}"
+                                  enctype="multipart/form-data">
+                                <input type="hidden" th:field="*{id}">
+                                <div class="mb-3">
+                                    <label class="form-label">Brand Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}"
+                                           required minlength="3" maxlength="45">
+                                </div>
+                                <div class="row gx-2">
+                                    <label class="form-label">Logo</label>
+                                    <div class="col-9 mb-3">
+                                        <input type="hidden" th:field="*{logo}">
+                                        <label class="form-label">
+                                            <input type="file" id="fileImage" name="fileImage"
+                                                   class="form-control" th:required="${brand.imagePath == null}"
+                                                   accept="image/png, image/jpeg">
+                                        </label>
+                                    </div>
+                                    <div class="gallery-uploader-wrap media-width col-3 mb-3">
+                                        <label class="uploader-img">
+                                            <img id="thumbnail" alt="Image Preview" width="100" th:src="@{${brand.imagePath}}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Select one or more categories: </label>
+                                    <select class="form-select" style="resize: vertical; height: 130px;" multiple required th:field="*{categories}">
+                                        <th:block th:each="cat : ${listCategories}">
+                                            <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="row row-auto-width mb-4">
+                                    <label class="col-sm-4 col-form-label">Chosen Categories: </label>
+                                    <div class="col-sm-8 mt-2">
+                                        <div id="chosenCategories"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center mb-4">
+                                    <button type="submit" class="btn btn-primary"> Save  </button>
+                                    <button type="button" class="btn btn-secondary" id="buttonCancel"> Cancel  </button>
+                                </div>
+                            </form>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card .// -->
+
+                    <!-- ====== COMPONENT LOGIN  END.// ====== -->
+
+                    <br><br>
+
+                </div> <!-- container .//  -->
+            </section>
+            <!-- ============== FORM SECTION CONTENT END// ============== -->
+        </div>
+    </main>
+
+    <footer th:replace="modal_fragments :: modal_dialog"></footer>
+
+    <footer th:replace="fragments :: footer"></footer>
+
+    <script type="text/javascript">
+        moduleURL = "[[@{/brands}]]"
+
+        $(document).ready(function () {
+            dropdownCategories = $("#categories");
+            divChosenCategories = $("#chosenCategories");
+
+            dropdownCategories.change(function() {
+                divChosenCategories.empty();
+                showChosenCategories();
+            });
+        });
+
+        function showChosenCategories() {
+            dropdownCategories.children("option:selected").each(function () {
+                selectedCategory = $(this);
+                catId = selectedCategory.val();
+                catName = selectedCategory.text().split("/").pop();
+
+                divChosenCategories.append("<span class='badge bg-primary m-1'>" + catName + "</span>");
+            });
+        }
+
+        /*function checkUnique(form) {
+            const brandId = $("#id").val();
+            const brandName = $("#name").val();
+
+            const csrfValue = $("input[name='_csrf']").val();
+
+            url = "[[@{/brands/check_unique}]]";
+
+            params = {
+                id: brandId,
+                name: brandName,
+                _csrf: csrfValue
+            };
+
+            $.post(url, params, function (response) {
+                if (response === "OK") {
+                    form.submit();
+                } else if (response === "DuplicateName") {
+                    showModalWarning("There is another category with the same name " + brandName);
+                } else {
+                    showModalError("Unknown response from server");
+                }
+            }).fail(function () {
+                showModalError("Could not connect to the server");
+            });
+
+            return false;
+        }*/
+    </script>
+    <script type="text/javascript" th:src="@{/assets/js/form.js}"></script>
+</body>
+</html>
