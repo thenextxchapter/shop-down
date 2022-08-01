@@ -67,11 +67,15 @@
                                 <div class="less-details">
                                     <div th:each="brand: ${listBrands}" class="row m-1">
                                         <div class="col-3">
-                                            <img class="img-sm" style="border-radius: 10%;" th:src="@{/assets/images/cameraSvg.png}">
+                                            <img class="img-sm" style="border-radius: 10%;" th:src="@{${brand.imagePath}}">
                                         </div>
                                         <div class="col-8">
                                             <div>[[${brand.name}]]</div>
-                                            <div>[[${brand.categories}]]</div>
+                                            <div>
+                                                <th:block th:each="cat : ${brand.categories}">
+                                                    <span class="badge bg-secondary rounded-pill" th:text="${cat.name}"></span>
+                                                </th:block>
+                                            </div>
                                             <div class="mt-2">
                                                 <div th:replace="fragments :: edit('brand', '/brands/edit/' + ${brand.id})"></div>
                                                 &nbsp;

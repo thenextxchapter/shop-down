@@ -9,10 +9,16 @@ import com.shopdown.admin.category.repository.CategoryRepository;
 import com.shopdown.common.entity.Brand;
 import com.shopdown.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BrandService {
+
+	public static final int ROOT_BRANDS_PER_PAGE = 10;
 
 	@Autowired
 	private CategoryRepository catRepo;
@@ -21,11 +27,21 @@ public class BrandService {
 	private BrandRepository brandRepo;
 
 	public List<Brand> listAll() {
-		return (List<Brand>) brandRepo.findAll();
+		return (List<Brand>) brandRepo.findAll(Sort.by("name").ascending());
 	}
 
-	public List<Category> listCategories() {
-		return (List<Category>) catRepo.findAll();
+	public Page<Brand> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+		Sort sort = Sort.by(sortField);
+
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+		Pageable pageable = PageRequest.of(pageNum - 1, ROOT_BRANDS_PER_PAGE, sort);
+
+		if (keyword != null) {
+			return brandRepo.findAll(keyword, pageable);
+		}
+
+		return brandRepo.findAll(pageable);
 	}
 
 	public Brand save(Brand brand) {
