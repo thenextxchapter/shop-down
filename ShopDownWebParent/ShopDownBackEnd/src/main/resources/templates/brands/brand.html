@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Brands - Shop Down Admin')"></head>
+<body>
+
+    <header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
+
+    <main class="section-content bg-light padding-y">
+        <div class="container">
+            <div class="pagetitle">
+                <h1>Manage Brands</h1>
+                <nav class="mt-2">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a th:href="@{/brands/new}"><i class="me-2 fas fa-user-plus"></i>Create New User</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/brands/export/csv}"><i class="me-2 fas fa-file-csv"></i>Export to CSV</a></li>
+<!--                        <li class="breadcrumb-item active"><a th:href="@{/users/export/excel}"><i class="me-2 fas fa-file-excel"></i>Export to Excel</a></li>-->
+<!--                        <li class="breadcrumb-item active"><a th:href="@{/users/export/pdf}"><i class="me-2 fas fa-file-pdf"></i>Export to PDF</a></li>-->
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <div th:replace="fragments :: message"></div>
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card all-users">
+                            <div class="card-body table-responsive">
+
+                                <form th:replace="fragments :: search_form('/brands/page/1')"></form>
+
+                                <table class="full-details table table-hover datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="hideable-column">#</th>
+                                            <th scope="col">Logo</th>
+                                            <th th:replace="fragments :: column_link('/brands', 'name', 'Brand Name', 'none')"></th>
+                                            <th scope="col">Categories</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="brand: ${listBrands}">
+                                            <th th:text="${brand.id}" scope="row" class="hideable-column">#</th>
+                                            <th scope="row">
+                                                <div class="aside">
+                                                    <img class="img-sm" style="border-radius: 10%;" th:src="@{/assets/images/cameraSvg.png}">
+                                                </div>
+                                            </th>
+                                            <td th:text="${brand.name}"></td>
+                                            <td>
+                                                <th:block th:each="cat : ${brand.categories}">
+                                                    <span class="badge bg-secondary rounded-pill" th:text="${cat.name}"></span>
+                                                </th:block>
+                                            </td>
+                                            <td>
+                                                <div th:replace="fragments :: edit('brand', '/brands/edit/' + ${brand.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: delete('brand', '/brands/delete/' + ${brand.id}, true, ${brand.id})"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="less-details">
+                                    <div th:each="brand: ${listBrands}" class="row m-1">
+                                        <div class="col-3">
+                                            <img class="img-sm" style="border-radius: 10%;" th:src="@{/assets/images/cameraSvg.png}">
+                                        </div>
+                                        <div class="col-8">
+                                            <div>[[${brand.name}]]</div>
+                                            <div>[[${brand.categories}]]</div>
+                                            <div class="mt-2">
+                                                <div th:replace="fragments :: edit('brand', '/brands/edit/' + ${brand.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: delete('brand', '/brands/delete/' + ${brand.id}, true, ${brand.id})"></div>
+                                            </div>
+                                        </div>
+                                        <div>&nbsp;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:replace="fragments :: pagination('/brands', 'brands')"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div th:replace="modal_fragments :: delete_modal"></div>
+
+    <footer th:replace="fragments :: footer"></footer>
+
+    <script th:src="@{/assets/js/common_list.js}"></script>
+    <script type="text/javascript">
+        // moduleURL = "[[@{/users}]]"
+
+        $(document).ready(function () {
+            $(".link-delete").on("click", function (e) {
+                e.preventDefault();
+                showConfirmDeleteModal($(this), 'brand');
+            });
+        });
+
+        function clearFilter() {
+            window.location = "[[@{/brands}]]";
+        }
+    </script>
+</body>
+</html>

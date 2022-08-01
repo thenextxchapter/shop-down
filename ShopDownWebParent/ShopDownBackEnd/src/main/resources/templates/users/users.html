@@ -60,7 +60,11 @@
                                             <td th:text="${user.firstName}"></td>
                                             <td th:text="${user.lastName}"></td>
                                             <td th:text="${user.email}" class="hideable-column"></td>
-                                            <td th:text="${user.roles}"></td>
+                                            <td>
+                                                <th:block th:each="role : ${user.roles}">
+                                                    <span class="badge bg-secondary rounded-pill" th:text="${role.name}"></span>
+                                                </th:block>
+                                            </td>
                                             <td>
                                                 <div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})"></div>
                                             </td>

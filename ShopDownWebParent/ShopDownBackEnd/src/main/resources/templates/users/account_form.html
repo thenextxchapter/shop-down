@@ -44,7 +44,11 @@
                                         </div> <!-- col .// -->
                                         <div class="col-lg-6 col-md-6 mb-3">
                                             <label class="form-label">Assigned Roles</label>
-                                            <p><b>[[${user.roles}]]</b></p>
+                                            <p>
+                                                <th:block th:each="role : ${user.roles}">
+                                                    <span class="badge bg-primary" th:text="${role.name}"></span>
+                                                </th:block>
+                                            </p>
                                         </div> <!-- col .// -->
                                         <div class="col-lg-6 col-md-6 mb-3">
                                             <label class="form-label">Password</label>
