@@ -205,4 +205,12 @@ public class Product {
 	public void setCost(float cost) {
 		this.cost = cost;
 	}
+
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }
