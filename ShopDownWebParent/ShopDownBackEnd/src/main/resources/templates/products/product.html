@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Products - Shop Down Admin')"></head>
+<body>
+
+    <header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
+
+    <main class="section-content bg-light padding-y">
+        <div class="container">
+            <div class="pagetitle">
+                <h1>Manage Products</h1>
+                <nav class="mt-2">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a th:href="@{/products/new}"><i class="me-2 fas fa-folder-plus"></i>Create New Brand</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/products/export/csv}"><i class="me-2 fas fa-file-csv"></i>Export to CSV</a></li>
+<!--                        <li class="breadcrumb-item active"><a th:href="@{/users/export/excel}"><i class="me-2 fas fa-file-excel"></i>Export to Excel</a></li>-->
+<!--                        <li class="breadcrumb-item active"><a th:href="@{/users/export/pdf}"><i class="me-2 fas fa-file-pdf"></i>Export to PDF</a></li>-->
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <div th:replace="fragments :: message"></div>
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card all-users">
+                            <div class="card-body table-responsive">
+
+                                <form th:replace="fragments :: search_form('/products/page/1')"></form>
+
+                                <table class="full-details table table-hover datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="hideable-column">#</th>
+                                            <th scope="col">Main Image</th>
+                                            <th th:replace="fragments :: column_link('/products', 'name', 'Product Name', 'none')"></th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Brand</th>
+                                            <th scope="col">Enabled</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="product: ${listProducts}">
+                                            <th th:text="${product.id}" scope="row" class="hideable-column">#</th>
+                                            <th scope="row">
+                                                <div class="aside">
+                                                </div>
+                                            </th>
+                                            <td th:text="${product.name}"></td>
+                                            <td th:text="${product.category.name}"></td>
+                                            <td th:text="${product.brand.name}"></td>
+                                            <td>
+                                                <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
+                                            </td>
+                                            <td>
+                                                <div th:replace="fragments :: view('product', '/products/view/' + ${product.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: delete('brand', '/products/delete/' + ${product.id}, true, ${product.id})"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="less-details">
+                                    <div th:each="product: ${listProducts}" class="row m-1">
+                                        <div class="col-3">
+                                            <img class="img-sm" style="border-radius: 10%;">
+                                        </div>
+                                        <div class="col-8">
+                                            <div>[[${product.name}]]</div>
+                                            <div>[[${product.category.name}]]</div>
+                                            <div>[[${product.brand.name}]]</div>
+
+                                            <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
+
+                                            <div class="mt-2">
+                                                <div th:replace="fragments :: view('product', '/products/view/' + ${product.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})"></div>
+                                                &nbsp;
+                                                <div th:replace="fragments :: delete('product', '/products/delete/' + ${product.id}, true, ${product.id})"></div>
+                                            </div>
+                                        </div>
+                                        <div>&nbsp;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:replace="fragments :: pagination('/products', 'products')"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div th:replace="modal_fragments :: delete_modal"></div>
+
+    <footer th:replace="fragments :: footer"></footer>
+
+    <script th:src="@{/assets/js/common_list.js}"></script>
+    <script type="text/javascript">
+        // moduleURL = "[[@{/users}]]"
+
+        $(document).ready(function () {
+            $(".link-delete").on("click", function (e) {
+                e.preventDefault();
+                showConfirmDeleteModal($(this), 'product');
+            });
+        });
+
+        function clearFilter() {
+            window.location = "[[@{/products}]]";
+        }
+    </script>
+</body>
+</html>

@@ -89,6 +89,13 @@
             <img th:src="@{/assets/fonts/edit.svg}" width="28" height="28">
         </a>
     </div>
+
+    <div th:fragment="view(entityName, viewURL)" th:remove="tag">
+        <a class="icon-xs mx-1 mb-1 box"
+            th:href="@{${viewURL}}" th:title="'View this ' + ${entityName}">
+            <img th:src="@{/assets/fonts/file-text.svg}" width="28" height="28">
+        </a>
+    </div>
         &nbsp;
     <div th:fragment="delete(entityName, deleteURL, visible, entityId)" th:remove="tag">
         <th:block th:if="${visible}">
