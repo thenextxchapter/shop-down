@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle})"></head>
+<body>
+
+    <header th:replace="navigation :: menu"></header> <!-- section-header end.// -->
+
+    <main class="section-content bg-light padding-top">
+        <div class="container">
+            <div class="pagetitle">
+                <h1>Manage Products</h1>
+            </div><!-- End Page Title -->
+
+            <!-- ============== FORM SECTION CONTENT  ============== -->
+            <section class="bg-light" style="min-height:90vh">
+                <div class="container">
+                    <!-- ====== COMPONENT LOGIN  ====== -->
+                    <div class="card shadow mx-auto" style="max-width:800px; margin-top:40px;">
+                        <form th:action="@{/products/save}" method="post" th:object="${product}">
+                        <div class="card-body">
+                            <h4 class="mb-4">[[${headerTitle}]]</h4>
+                                <input type="hidden" th:field="*{id}">
+                                <div>
+                                    <!-- Default Tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">Overview</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab">Details</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content pt-2" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                            <div th:replace="products/product_overview :: content"></div>
+                                        </div>
+                                        <div class="tab-pane fade" id="description" role="tabpanel">
+                                            Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                                        </div>
+                                        <div class="tab-pane fade" id="details" role="tabpanel">
+                                            Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                                        </div>
+                                    </div><!-- End Default Tabs -->
+                                </div>
+                        </div> <!-- card-body.// -->
+                            <div class="text-center p-3"
+                                 style="opacity: 1; background-color: #f8f9fa; border-top: 1px solid #dee2e6; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem;">
+                                <button type="submit" class="btn btn-primary"> Save  </button>
+                                &nbsp;
+                                <button type="button" class="btn btn-outline-secondary" id="buttonCancel"> Cancel  </button>
+                            </div>
+
+                            </form>
+                    </div> <!-- card .// -->
+
+                    <!-- ====== COMPONENT LOGIN  END.// ====== -->
+
+                    <br><br>
+
+                </div> <!-- container .//  -->
+            </section>
+            <!-- ============== FORM SECTION CONTENT END// ============== -->
+        </div>
+    </main>
+
+    <footer th:replace="modal_fragments :: modal_dialog"></footer>
+
+    <footer th:replace="fragments :: footer"></footer>
+
+    <script type="text/javascript">
+        moduleURL = "[[@{/products}]]";
+        brandModuleURL = "[[@{/brands}]]";
+        const dropdownBrands = $("#brand");
+        const dropdownCategory = $("#category");
+
+        $(document).ready(function () {
+            dropdownBrands.change(function () {
+                dropdownCategory.empty();
+                /* getCategories() shows the categories of the selected brand */
+                getCategories();
+            });
+        });
+
+        function getCategories() {
+            const brandId = dropdownBrands.val();
+            const url = brandModuleURL + "/" + brandId + "/categories";
+
+            $.get(url, function (responseJson) {
+               $.each(responseJson, function (index, category) {
+                   $("<option>").val(category.id).text(category.name).appendTo(dropdownCategory);
+               });
+            });
+        }
+    </script>
+    <script type="text/javascript" th:src="@{/assets/js/form.js}"></script>
+</body>
+</html>
