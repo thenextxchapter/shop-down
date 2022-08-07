@@ -46,7 +46,7 @@
                                             <th th:text="${brand.id}" scope="row" class="hideable-column">#</th>
                                             <th scope="row">
                                                 <div class="aside">
-                                                    <img class="img-sm" style="border-radius: 10%;" th:src="@{${brand.imagePath}}">
+                                                    <img class="img-sm" style="border-radius: 10%; object-fit: contain;" th:src="@{${brand.imagePath}}">
                                                 </div>
                                             </th>
                                             <td th:text="${brand.name}"></td>

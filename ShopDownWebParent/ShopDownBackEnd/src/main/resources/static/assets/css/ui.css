@@ -184,7 +184,7 @@ a:hover > .img-thumbnail {
 
 .img-xs, .img-sm, .img-md, .img-lg {
   display: inline-block;
-  object-fit: contain;
+  object-fit: cover;
   flex-shrink: 0;
   flex-grow: 0;
 }
@@ -1588,7 +1588,7 @@ ul.row {
   /*margin-bottom: 30px;
   border: none;
   border-radius: 5px;*/
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  box-shadow: 0px 0 5px rgba(1, 41, 112, 0.1) !important;
 }
 
 .card-header, .card-footer {
@@ -1766,8 +1766,9 @@ a {
 }
 
 .form-control {
-  background-color: #f9f9f9;
+  /*background-color: #f9f9f9;*/
   border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -1809,4 +1810,22 @@ a {
 }
 .error-404 .btn:hover {
   background: #3e4f6f;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.form-select {
+  border-radius: 0.375rem;
+  border: 1px solid #dee2e6;
+}
+
+.form-switch .form-check-input {
+  height: 1.5em;
+  width: 2.75em !important;
+}
+
+.card {
+  border-radius: 0.5rem;
 }
