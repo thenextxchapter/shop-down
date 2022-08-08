@@ -1,5 +1,6 @@
 package com.shopdown.admin.product.service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ProductService {
 
 	@Autowired private ProductRepository repo;
@@ -46,5 +48,9 @@ public class ProductService {
 		}
 
 		return "OK";
+	}
+
+	public void updateProductEnabledStatus(Integer id, boolean enabled) {
+		repo.updateEnabledStatus(id, enabled);
 	}
 }
