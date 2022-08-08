@@ -3,6 +3,7 @@ package com.shopdown.admin.product.controller;
 import java.util.List;
 
 import com.shopdown.admin.brand.service.BrandService;
+import com.shopdown.admin.product.exception.ProductNotFoundException;
 import com.shopdown.admin.product.service.ProductService;
 import com.shopdown.common.entity.Brand;
 import com.shopdown.common.entity.Product;
@@ -63,6 +64,23 @@ public class ProductController {
 		String status = enabled ? "enabled" : "disabled";
 		String message = "The product ID " + id + " has been " + status;
 		redirectAttributes.addFlashAttribute("message", message);
+
+		return "redirect:/products";
+	}
+
+	@GetMapping("/products/delete/{id}")
+	public String deleteProduct(
+			@PathVariable(name = "id") Integer id,
+			RedirectAttributes redirectAttributes
+	) {
+		try {
+			productService.delete(id);
+
+			redirectAttributes.addFlashAttribute("message",
+					"The product ID " + id + " has been deleted successfully");
+		} catch (ProductNotFoundException exception) {
+			redirectAttributes.addFlashAttribute("message", exception.getMessage());
+		}
 
 		return "redirect:/products";
 	}

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
+	Long countById(Integer id);
+
 	Product findByName(String name);
 
 	@Query("UPDATE Product p SET p.enabled = ?2 WHERE p.id = ?1")
