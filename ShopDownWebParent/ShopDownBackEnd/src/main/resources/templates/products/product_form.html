@@ -16,7 +16,8 @@
                 <div class="container">
                     <!-- ====== COMPONENT LOGIN  ====== -->
                     <div class="card shadow mx-auto" style="max-width:800px; margin-top:40px;">
-                        <form th:action="@{/products/save}" method="post" th:object="${product}">
+                        <form th:action="@{/products/save}" method="post" th:object="${product}"
+                              onsubmit="return checkUnique(this)">
                         <div class="card-body">
                             <h4 class="mb-4">[[${headerTitle}]]</h4>
                                 <input type="hidden" th:field="*{id}">
@@ -101,6 +102,35 @@
                    $("<option>").val(category.id).text(category.name).appendTo(dropdownCategory);
                });
             });
+        }
+
+        function checkUnique(form) {
+            const productId = $("#id").val();
+            const productName = $("#name").val();
+
+            const csrfValue = $("input[name='_csrf']").val();
+
+            const url = "[[@{/products/check_unique}]]";
+
+            const params = {
+                id: productId,
+                name: productName,
+                _csrf: csrfValue
+            };
+
+            $.post(url, params, function (response) {
+                if (response === "OK") {
+                    form.submit();
+                } else if (response === "DuplicateName") {
+                    showModalWarning("There is another product with the same name " + productName);
+                } else {
+                    showModalError("Unknown response from server");
+                }
+            }).fail(function () {
+                showModalError("Could not connect to server");
+            });
+
+            return false;
         }
 
         tinymce.init({
