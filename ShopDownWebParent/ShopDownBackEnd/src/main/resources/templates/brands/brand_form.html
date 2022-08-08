@@ -28,8 +28,8 @@
                                            required minlength="3" maxlength="45">
                                 </div>
                                 <div class="row gx-2">
-                                    <label class="form-label">Logo</label>
-                                    <div class="col-9 mb-3">
+                                    <label class="form-label">Upload Logo</label>
+                                    <!--<div class="col-9 mb-3">
                                         <input type="hidden" th:field="*{logo}">
                                         <label class="form-label">
                                             <input type="file" id="fileImage" name="fileImage"
@@ -40,6 +40,15 @@
                                     <div class="gallery-uploader-wrap media-width col-3 mb-3">
                                         <label class="uploader-img">
                                             <img id="thumbnail" alt="Image Preview" width="100" th:src="@{${brand.imagePath}}">
+                                        </label>
+                                    </div>-->
+                                    <div class="gallery-uploader-wrap media-width col-3 mb-3">
+                                        <input type="hidden" th:field="*{logo}">
+                                        <label class="uploader-img">
+                                            <input type="file" id="fileImage" name="image"
+                                                   class="form-control" style="padding: 0"
+                                                   th:required="${brand.imagePath == null}" accept="image/png, image/jpeg">
+                                            <img id="thumbnail" width="100" th:src="@{${brand.imagePath}}">
                                         </label>
                                     </div>
                                 </div>

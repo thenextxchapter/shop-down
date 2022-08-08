@@ -71,9 +71,17 @@
                                     <figure class="text-lg-center mt-3">
                                         <input type="hidden" th:field="*{photo}">
                                         <img class="img-lg mb-3 img-avatar" th:src="@{${user.photosImagePath}}" alt="User Photo">
-                                        <figcaption class="d-flex">
-                                            <input style="width: 300px" type="file" id="fileImage" name="image" class="form-control" accept="image/png, image/jpeg">
-                                        </figcaption>
+<!--                                        <figcaption class="d-flex">-->
+<!--                                            <input style="width: 300px" type="file" id="fileImage" name="image" class="form-control" accept="image/png, image/jpeg">-->
+<!--                                        </figcaption>-->
+                                        <div class="gallery-uploader-wrap">
+                                            <label>
+                                                <a class="btn btn-sm btn-light">
+                                                    <input style="padding: 0" type="file" id="fileImage" name="image" class="form-control" accept="image/png, image/jpeg">
+                                                    <i class="fa fa-camera"></i> Update Photo
+                                                </a>
+                                            </label>
+                                        </div>
                                     </figure>
                                 </aside> <!-- col.// -->
                             </div> <!-- row.// -->

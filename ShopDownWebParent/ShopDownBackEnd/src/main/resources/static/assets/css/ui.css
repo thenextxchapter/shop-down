@@ -1210,6 +1210,7 @@ strong.price, b.price, .b.price, .fw-bold.price {
 .gallery-uploader-wrap .uploader-img {
   position: relative;
   display: inline-flex;
+  flex-direction: column;
   width: 110px;
   height: 110px;
   margin-right: 5px;
@@ -1222,6 +1223,7 @@ strong.price, b.price, .b.price, .fw-bold.price {
   border: 1px dashed #ccd1d6;
   overflow: hidden;
   background-color: #f8f9fa;
+  cursor: pointer;
 }
 .gallery-uploader-wrap .uploader-img:hover {
   border-color: #0d6efd;

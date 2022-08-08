@@ -71,14 +71,16 @@
                                 </div>
                                 <div class="row gx-2">
                                     <label class="form-label">Upload Photo</label>
-                                    <div class="col-9 mb-3">
+                                    <!--<div class="col-9 mb-3">
                                         <input type="hidden" th:field="*{photo}">
                                         <label class="form-label">
                                             <input type="file" id="fileImage" name="image" class="form-control" accept="image/png, image/jpeg">
                                         </label>
-                                    </div>
+                                    </div>-->
                                     <div class="gallery-uploader-wrap media-width col-3 mb-3">
+                                        <input type="hidden" th:field="*{photo}">
                                         <label class="uploader-img">
+                                            <input type="file" id="fileImage" name="image" class="form-control" style="padding: 0" accept="image/png, image/jpeg">
                                             <img id="thumbnail" width="100" th:src="@{${user.photosImagePath}}">
                                         </label>
                                     </div>
