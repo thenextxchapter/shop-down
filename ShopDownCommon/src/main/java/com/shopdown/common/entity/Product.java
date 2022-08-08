@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -234,6 +235,12 @@ public class Product {
 
 	public void addExtraImage(String imageName) {
 		this.images.add(new ProductImage(imageName, this));
+	}
+
+	@Transient
+	public String getMainImagePath() {
+//		if (id == null || mainImage == null) return "/assets/images/cameraSvg.png";
+		return "/product-images/" + this.id + "/" + this.mainImage;
 	}
 
 	@Override

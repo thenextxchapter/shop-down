@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div class="row mt-3">
+            <div class="col">
+                <label class="form-label">Upload image form</label>
+                <div id="emptyFileImage">
+                    <div class="gallery-uploader-wrap">
+                        <label class="uploader-img" style="width: 100%;">
+                            <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                            </svg>
+                            <p class="text-primary">Upload</p>
+                        </label>
+                    </div>
+                </div>
+                <div id="notEmptyFileImage">
+                    <div class="grid grid-cols-3 gap-4 auto-rows-fr">
+                        <div class="grid-product">
+                            <img id="thumbnail" th:src="@{${product.mainImagePath}}">
+                        </div>
+                        <div class="grid-product-item gallery-uploader-wrap" style="border: none">
+                            <label class="uploader-img" style="width: 100%; height: 100%; margin: 0;">
+                                <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                </svg>
+                                <p class="text-primary">Upload</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

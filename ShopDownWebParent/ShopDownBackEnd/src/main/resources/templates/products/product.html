@@ -48,6 +48,7 @@
                                             <th th:text="${product.id}" scope="row" class="hideable-column">#</th>
                                             <th scope="row">
                                                 <div class="aside">
+                                                    <img class="img-sm" style="border-radius: 10%;" th:src="@{${product.mainImagePath}}">
                                                 </div>
                                             </th>
                                             <td th:text="${product.name}"></td>
@@ -70,7 +71,7 @@
                                 <div class="less-details">
                                     <div th:each="product: ${listProducts}" class="row m-1">
                                         <div class="col-3">
-                                            <img class="img-sm" style="border-radius: 10%;">
+                                            <img class="img-sm" style="border-radius: 10%;" th:src="@{${product.mainImagePath}}">
                                         </div>
                                         <div class="col-8">
                                             <div>[[${product.name}]]</div>

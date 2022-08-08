@@ -102,6 +102,7 @@
     <footer th:replace="fragments :: footer"></footer>
 
     <script type="text/javascript">
+        MAX_FILE_SIZE = 102400;  // 100KB
         moduleURL = "[[@{/}]]"
         function checkPasswordMatch(confirmPassword) {
             if (confirmPassword.value != $("#password").val()) {
