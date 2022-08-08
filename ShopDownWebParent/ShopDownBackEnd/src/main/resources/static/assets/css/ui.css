@@ -1829,3 +1829,22 @@ body {
 .card {
   border-radius: 0.5rem;
 }
+
+.modal-content {
+  border-radius: 0.5rem;
+}
+
+.modal-body {
+  padding: 0 1rem 1rem;
+}
+
+.modal-header {
+  border-bottom: none;
+  justify-content: start;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
