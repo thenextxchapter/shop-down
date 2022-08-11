@@ -52,7 +52,7 @@
                                         <tr th:each="user: ${listUsers}">
                                             <th th:text="${user.id}" scope="row" class="hideable-column">#</th>
                                             <th scope="row">
-                                                <div class="aside">
+                                                 <div class="aside">
                                                     <img class="img-avatar img-sm" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}">
                                                     <img class="img-avatar img-sm" th:if="${user.photo == null}" th:src="@{/assets/images/cameraSvg.png}">
                                                 </div>

@@ -106,6 +106,12 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+}
+
 /*@media (min-width: 1200px) {
   !* tablet devices *!
   .navbar-toggler {

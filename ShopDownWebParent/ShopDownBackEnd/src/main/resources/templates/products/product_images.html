@@ -19,13 +19,18 @@
                     </div>
                 </div>
                 <div id="notEmptyFileImage">
-                    <div class="grid grid-cols-3 gap-4 auto-rows-fr">
+                    <div class="grid grid-cols-3 grid-cols-4 gap-4 auto-rows-fr">
                         <div class="grid-product">
                             <img id="thumbnail" th:src="@{${product.mainImagePath}}">
                         </div>
-                        <div class="grid-product-item gallery-uploader-wrap" style="border: none">
+                        <div class="grid-product-item notEmptyExtraImage" id="divExtraImage0">
+                            <div id="extraImageHeader0" class="extra-image-header"></div>
+                            <img id="extraThumbnail0" class="extra-thumbnail" alt="Extra image #1 preview" th:src="@{${product.mainImagePath}}">
+                        </div>
+                        <div id="divProductImages" class="grid-product-item gallery-uploader-wrap" style="border: none">
                             <label class="uploader-img" style="width: 100%; height: 100%; margin: 0;">
-                                <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+
+                                <input type="file" name="extraImage" accept="image/png, image/jpeg">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="3"/>
                                     <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
