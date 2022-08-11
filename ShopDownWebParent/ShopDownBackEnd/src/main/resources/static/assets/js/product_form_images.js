@@ -1,17 +1,9 @@
-const dropdownBrands = $("#brand");
-const dropdownCategory = $("#category");
-
 $(document).ready(function () {
-    dropdownBrands.change(function () {
-        dropdownCategory.empty();
-        /* getCategories() shows the categories of the selected brand */
-        getCategories();
-    });
-
-    getCategories();
-
     $("input[name='extraImage']").each(function (index) {
         $(this).change(function () {
+            if (!checkFileSize(this)) {
+                return;
+            }
             showExtraImageThumbnail(this, index);
         });
     });
@@ -64,50 +56,3 @@ function addNextExtraImageSection(index) {
 function removeExtraImage(index) {
     $("#divExtraImage" + index).remove();
 }
-
-function getCategories() {
-    const brandId = dropdownBrands.val();
-    const url = brandModuleURL + "/" + brandId + "/categories";
-
-    $.get(url, function (responseJson) {
-        $.each(responseJson, function (index, category) {
-            $("<option>").val(category.id).text(category.name).appendTo(dropdownCategory);
-        });
-    });
-}
-
-function checkUnique(form) {
-    const productId = $("#id").val();
-    const productName = $("#name").val();
-
-    const csrfValue = $("input[name='_csrf']").val();
-
-    const params = {
-        id: productId,
-        name: productName,
-        _csrf: csrfValue
-    };
-
-    $.post(checkUniqueUrl, params, function (response) {
-        if (response === "OK") {
-            form.submit();
-        } else if (response === "DuplicateName") {
-            showModalWarning("There is another product with the same name " + productName);
-        } else {
-            showModalError("Unknown response from server");
-        }
-    }).fail(function () {
-        showModalError("Could not connect to server");
-    });
-
-    return false;
-}
-
-tinymce.init({
-    selector: 'textarea',
-    plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
-    toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
-    toolbar_mode: 'floating',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-});
