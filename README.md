@@ -23,6 +23,10 @@ Basics (Administrator Layout, Customer facing Layout, Orders, Billing & Payment)
   - Export to PDF | CSV | Excel files
   - Assign roles (could be more than one to users)
   - Search for users using keywords
+    <img src="img/Users.png">
+    <img src="img/Edit_User.png">
+    <br>
+    <br>
 
 
 
@@ -33,13 +37,19 @@ Categories are group entities that a product can belong to e.g books, clothing, 
   - Export to CSV file
   - Category module uses a hierarchical structure
   - Search for categories using keywords
-
+    <img src="img/Category.png">
+    <img src="img/Edit_Category.png">
+    <br>
+    <br>
 
 - **Brand Module**
   - Create | edit | view | delete new and existing brands
   - Search for brands using keywords
   - Brands can have products under more than one category
-
+    <img src="img/Brands.png">
+    <img src="img/Edit_Brand.png">
+    <br>
+    <br>
 
 - **Product Module**
   - Create | edit | view | delete new and existing products
@@ -48,12 +58,23 @@ Categories are group entities that a product can belong to e.g books, clothing, 
   - You can add descriptions about the product
   - You can add multiple images for the project
   - You can also add shipping details in terms of packaging dimensions which will be used to calculate the shipping cost
+    <img src="img/Product_Images.png">
+    <img src="img/Product_overview.png">
+    <img src="img/Product_RTE.png">
+    <img src="img/Product_shipping.png">
+    <br>
+    <br>
+
 
 
 ### Additional Stuff
 **The Application is still a work in progress so as I add more features I'll keep updating this README file**
 - Login and User Authentication
 - View account profile and make changes
+  <img src="img/Account_details.png">
+  <img src="img/Login_screen.png">
+  <br>
+  <br>
 
 
 ## Technologies
