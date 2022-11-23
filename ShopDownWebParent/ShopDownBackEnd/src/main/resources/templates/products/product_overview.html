@@ -29,9 +29,20 @@
 
         <div class="mb-3 mt-4">
             <label class="form-label">Category</label>
-            <select class="form-select" required th:field="*{category}">
-                <option value="0">Select Brand Category</option>
-            </select>
+
+            <th:block th:if="${product.category != null}">
+                <select class="form-select" required th:field="*{category}">
+                    <th:block th:each="cat : ${product.brand.categories}">
+                        <option th:value="${cat.id}">[[${cat.name}]]</option>
+                    </th:block>
+                </select>
+            </th:block>
+
+            <th:block th:if="${product.category == null}">
+                <select class="form-select" required th:field="*{category}">
+                    <option value="0">Select Brand Category</option>
+                </select>
+            </th:block>
         </div>
 
         <div class="row gx-2 mt-4">

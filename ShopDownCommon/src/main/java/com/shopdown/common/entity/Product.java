@@ -256,7 +256,7 @@ public class Product {
 
 	@Transient
 	public String getMainImagePath() {
-//		if (id == null || mainImage == null) return "/assets/images/cameraSvg.png";
+		if (id == null || mainImage == null) return "/assets/images/image.png";
 		return "/product-images/" + this.id + "/" + this.mainImage;
 	}
 

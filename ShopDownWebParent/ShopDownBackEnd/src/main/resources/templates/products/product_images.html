@@ -1,15 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <body>
     <div th:fragment="content" th:remove="tag">
-        <div class="row mt-3">
-            <div class="col">
-                <label class="form-label">Upload image form</label>
-                <div id="emptyFileImage">
-                    <div class="gallery-uploader-wrap">
-                        <label class="uploader-img" style="width: 100%;">
-                            <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+        <label class="form-label">Upload image form</label>
+
+        <div class="grid grid-cols-3 grid-cols-4 gap-4 auto-rows-fr" id="divProductImages">
+            <div class="grid-product">
+                <div class="gallery-uploader-wrap" style="width: 100%;height: 100%;">
+                    <input type="hidden" th:field="*{mainImage}">
+
+                    <label class="uploader-img" style="width: inherit; height: inherit;">
+                        <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" required
+                               class="form-control" style="padding: 0"
+                        >
+                        <img id="thumbnail" alt="Main image preview" width="100%" th:src="@{${product.mainImagePath}}">
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid-product-item" id="divExtraImage0">
+                <div id="extraImageHeader0" class="extra-image-header"></div>
+                <div class="gallery-uploader-wrap" style="width: 100%;height: 100%;">
+                    <label class="uploader-img" style="width: inherit; height: inherit;">
+                        <input type="file" name="extraImage" accept="image/png, image/jpeg"
+                               class="form-control" style="padding: 0"
+                        >
+                        <img id="extraThumbnail0" alt="Extra image #1 preview" width="100%" th:src="@{/assets/images/image.png}">
+                        <input type="hidden" name="extraImage">
+                    </label>
+                </div>
+            </div>
+<!--
+            <div th:if="${id == null}" id="emptyFileImage">
+                <div class="gallery-uploader-wrap">
+                    <label class="uploader-img" style="width: 100%;">
+                        <input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                        </svg>
+                        <p class="text-primary">Upload</p>
+                    </label>
+                </div>
+            </div>
+-->
+<!--
+            <div id="notEmptyFileImage">
+                <div class="grid grid-cols-3 grid-cols-4 gap-4 auto-rows-fr">
+                    <div class="grid-product">
+                        <img id="thumbnail" th:src="@{${product.mainImagePath}}">
+                        <input type="hidden" th:field="*{mainImage}">
+                    </div>
+
+                    <th:block th:each="extraImage : ${product.images}">
+                        <div class="grid-product-item">
+                            <div class="extra-image-header"></div>
+                            <img class="extra-thumbnail"
+                                 alt="Extra image #1 preview"
+                                 th:src="@{${extraImage.imagePath}}">
+                        </div>
+                    </th:block>
+
+                    <div class="grid-product-item notEmptyExtraImage" id="divExtraImage0">
+                        <div id="extraImageHeader0" class="extra-image-header"></div>
+                        <img id="extraThumbnail0" class="extra-thumbnail"
+                             alt="Extra image #1 preview"
+                             th:src="@{${product.mainImagePath}}">
+                        <input type="hidden" th:name="extraImage">
+                    </div>
+                    <div id="divProductImages" class="grid-product-item gallery-uploader-wrap" style="border: none">
+                        <label class="uploader-img" style="width: 100%; height: 100%; margin: 0;">
+
+                            <input type="file" name="file" accept="image/png, image/jpeg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="3"/>
                                 <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
@@ -18,30 +81,9 @@
                         </label>
                     </div>
                 </div>
-                <div id="notEmptyFileImage">
-                    <div class="grid grid-cols-3 grid-cols-4 gap-4 auto-rows-fr">
-                        <div class="grid-product">
-                            <img id="thumbnail" th:src="@{${product.mainImagePath}}">
-                        </div>
-                        <div class="grid-product-item notEmptyExtraImage" id="divExtraImage0">
-                            <div id="extraImageHeader0" class="extra-image-header"></div>
-                            <img id="extraThumbnail0" class="extra-thumbnail" alt="Extra image #1 preview" th:src="@{${product.mainImagePath}}">
-                        </div>
-                        <div id="divProductImages" class="grid-product-item gallery-uploader-wrap" style="border: none">
-                            <label class="uploader-img" style="width: 100%; height: 100%; margin: 0;">
-
-                                <input type="file" name="extraImage" accept="image/png, image/jpeg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#999" width="32" height="32" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="3"/>
-                                    <path d="M16.83 4L15 2H9L7.17 4H2v16h20V4h-5.17zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                                </svg>
-                                <p class="text-primary">Upload</p>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+-->
+
         </div>
     </div>
 </body>

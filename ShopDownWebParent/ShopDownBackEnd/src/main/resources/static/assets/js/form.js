@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $("#notEmptyFileImage").addClass("no-display");
-    $(".notEmptyExtraImage").addClass("no-display");
 
     $("#buttonCancel").on("click", function () {
         window.location = moduleURL;
@@ -15,8 +13,6 @@ $(document).ready(function () {
 });
 
 function showImageThumbnail(fileInput) {
-    $("#emptyFileImage").addClass("no-display");
-    $("#notEmptyFileImage").removeClass("no-display").addClass("do-display");
     const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
